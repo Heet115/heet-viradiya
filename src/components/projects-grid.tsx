@@ -104,7 +104,7 @@ export function ProjectsGrid() {
             <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
               Artifacts
             </p>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
               Open Source Projects
             </h2>
           </div>
@@ -141,7 +141,7 @@ export function ProjectsGrid() {
                 isVisible && "animate-fade-in-up",
                 hoveredProject === project.id && "border-primary/40 bg-card/70",
                 "highlight" in project && project.highlight
-                  ? "border-primary/30 from-primary/8 via-card/50 to-primary/8 bg-gradient-to-br sm:col-span-2 lg:col-span-2"
+                  ? "border-primary/30 from-primary/8 via-card/50 to-primary/8 bg-linear-to-br sm:col-span-2 lg:col-span-2"
                   : "border-border/60",
                 project.featured &&
                   !("highlight" in project && project.highlight) &&
@@ -260,7 +260,7 @@ export function ProjectsGrid() {
                 )}
               </div>
 
-              <div className="from-primary via-primary/80 absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r to-transparent transition-all duration-500 group-hover:w-full" />
+              <div className="from-primary via-primary/80 absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r to-transparent transition-all duration-500 group-hover:w-full" />
             </article>
           ))}
         </div>

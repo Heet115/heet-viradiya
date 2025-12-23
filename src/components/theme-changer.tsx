@@ -8,7 +8,11 @@ import { themes, type ThemeColor } from "@/lib/themes";
 
 const STORAGE_KEY = "color-theme";
 
-export function ThemeChanger() {
+interface ThemeChangerProps {
+  openDirection?: "up" | "down";
+}
+
+export function ThemeChanger({ openDirection = "down" }: ThemeChangerProps) {
   const [currentTheme, setCurrentTheme] = useState<ThemeColor>("cyan");
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -170,22 +174,25 @@ export function ThemeChanger() {
           />
           <div
             className={cn(
-              "absolute top-12 right-0 z-50",
-              "border-border w-48 rounded-lg border",
+              "absolute z-50",
+              openDirection === "up" ? "bottom-12 left-0" : "top-12",
+              "right-0",
+              "border-border w-44 rounded-lg border sm:w-48",
               "bg-card/95 shadow-xl backdrop-blur-xl",
-              "animate-fade-in p-3",
+              "animate-fade-in p-2.5 sm:p-3",
+              "max-h-[60vh] overflow-y-auto",
             )}
           >
-            <div className="text-muted-foreground mb-2 font-mono text-xs tracking-wider uppercase">
+            <div className="text-muted-foreground mb-2 font-mono text-[10px] tracking-wider uppercase sm:text-xs">
               Select Theme
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               {Object.entries(themes).map(([key, theme]) => (
                 <button
                   key={key}
                   onClick={() => handleThemeChange(key as ThemeColor)}
                   className={cn(
-                    "flex w-full items-center gap-3 rounded-lg px-3 py-2.5",
+                    "flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 sm:gap-3 sm:px-3 sm:py-2.5",
                     "transition-all duration-200",
                     "hover:bg-secondary/80",
                     currentTheme === key
@@ -195,13 +202,13 @@ export function ThemeChanger() {
                 >
                   <div
                     className={cn(
-                      "border-border h-5 w-5 rounded-full border-2 shadow-sm",
+                      "border-border h-4 w-4 shrink-0 rounded-full border-2 shadow-sm sm:h-5 sm:w-5",
                       themeColors[key as ThemeColor],
                     )}
                   />
                   <span
                     className={cn(
-                      "flex-1 text-left font-mono text-sm",
+                      "flex-1 text-left font-mono text-xs sm:text-sm",
                       currentTheme === key
                         ? "text-foreground font-medium"
                         : "text-muted-foreground",
@@ -210,7 +217,7 @@ export function ThemeChanger() {
                     {theme.name}
                   </span>
                   {currentTheme === key && (
-                    <div className="bg-primary h-1.5 w-1.5 rounded-full" />
+                    <div className="bg-primary h-1.5 w-1.5 shrink-0 rounded-full" />
                   )}
                 </button>
               ))}

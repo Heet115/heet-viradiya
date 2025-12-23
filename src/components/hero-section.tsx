@@ -78,10 +78,10 @@ export function HeroSection() {
               <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
                 HEET VIRADIYA — IT Student & Web Developer
               </p>
-              <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-6xl">
+              <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-6xl">
                 Forging digital
                 <br />
-                <span className="from-primary/50 to-accent typing-cursor bg-gradient-to-l bg-clip-text text-transparent">
+                <span className="from-primary/50 to-accent typing-cursor bg-linear-to-l bg-clip-text text-transparent">
                   {displayText}
                 </span>
               </h1>
@@ -139,7 +139,7 @@ export function HeroSection() {
               isVisible && "animate-scale-in stagger-4",
             )}
           >
-            <div className="border-border bg-card/60 glass hover-lift relative rounded-xl border p-5 sm:p-8">
+            <div className="border-border bg-card/60 glass hover-lift relative rounded-xl border p-4 sm:p-8">
               {/* Terminal header dots */}
               <div className="absolute top-4 left-4 flex items-center gap-2">
                 <div className="bg-destructive/60 hover:bg-destructive h-3 w-3 rounded-full transition-colors" />
@@ -150,18 +150,18 @@ export function HeroSection() {
                 terminal://heetviradiya
               </div>
 
-              <pre className="text-primary/80 mt-6 overflow-hidden font-mono text-[10px] leading-relaxed sm:text-xs md:text-sm">
-                <span className="sm:hidden">{`┌───────────────────────┐
-│  ██╗  ██╗██╗   ██╗    │
-│  ██║  ██║██║   ██║    │
-│  ███████║██║   ██║    │
-│  ██╔══██║╚██╗ ██╔╝    │
-│  ██║  ██║ ╚████╔╝     │
-│  ╚═╝  ╚═╝  ╚═══╝      │
-│                       │
-│  > projects: 3        │
-│  > status: learning   │
-└───────────────────────┘`}</span>
+              <pre className="text-primary/80 xs:text-[10px] mt-6 overflow-x-auto font-mono text-[8px] leading-relaxed sm:text-xs md:text-sm">
+                <span className="block sm:hidden">{`┌─────────────────────┐
+│ ██╗  ██╗██╗   ██╗   │
+│ ██║  ██║██║   ██║   │
+│ ███████║██║   ██║   │
+│ ██╔══██║╚██╗ ██╔╝   │
+│ ██║  ██║ ╚████╔╝    │
+│ ╚═╝  ╚═╝  ╚═══╝     │
+│                     │
+│ > projects: 3       │
+│ > status: learning  │
+└─────────────────────┘`}</span>
                 <span className="hidden sm:block">{`┌─────────────────────────────────────┐
 │                                     │
 │  ██╗  ██╗███████╗███████╗████████╗  │
@@ -205,7 +205,7 @@ export function HeroSection() {
         )}
       >
         <span className="text-muted-foreground font-mono text-xs">scroll</span>
-        <div className="from-primary/50 h-12 w-px animate-pulse bg-gradient-to-b to-transparent" />
+        <div className="from-primary/50 h-12 w-px animate-pulse bg-linear-to-b to-transparent" />
       </div>
     </section>
   );

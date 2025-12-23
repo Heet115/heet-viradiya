@@ -54,7 +54,7 @@ export function Footer() {
       className="border-border/30 border-t px-4 py-20 sm:px-6 sm:py-28"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 sm:gap-16 lg:grid-cols-2">
+        <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left column */}
           <div
             className={cn(
@@ -66,9 +66,9 @@ export function Footer() {
               <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
                 Connect
               </p>
-              <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+              <h2 className="text-2xl font-bold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl">
                 {"Let's build something "}
-                <span className="from-primary/50 to-accent bg-gradient-to-l bg-clip-text text-transparent">
+                <span className="from-primary/50 to-accent bg-linear-to-l bg-clip-text text-transparent">
                   together
                 </span>
               </h2>
@@ -81,7 +81,7 @@ export function Footer() {
             <div className="pt-2">
               <a
                 href="mailto:hpviradiya05@gmail.com"
-                className="group border-primary bg-primary/10 text-primary hover:text-primary-foreground relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl border px-8 py-4 font-mono text-sm transition-all duration-500 active:scale-[0.98] sm:w-auto sm:py-4"
+                className="group border-primary bg-primary/10 text-primary hover:text-primary-foreground relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl border px-6 py-3.5 font-mono text-sm transition-all duration-500 active:scale-[0.98] sm:w-auto sm:px-8 sm:py-4"
               >
                 <span className="relative z-10">send a signal</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">

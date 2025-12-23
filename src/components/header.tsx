@@ -42,18 +42,18 @@ export function Header() {
         "fixed top-0 right-0 left-0 z-50 transition-all duration-500",
         isScrolled
           ? "border-border/50 bg-background/80 border-b shadow-sm backdrop-blur-xl"
-          : "bg-transparent",
+          : "bg-background/60 backdrop-blur-md md:bg-transparent md:backdrop-blur-none",
       )}
     >
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
         <nav className="flex items-center justify-between">
-          <Link href="/" className="group flex items-center gap-3">
-            <div className="border-primary/50 bg-primary/10 text-primary group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/25 relative flex h-9 w-9 items-center justify-center rounded-lg border font-mono text-sm transition-all duration-400 group-hover:scale-105 group-hover:shadow-lg">
+          <Link href="/" className="group flex items-center gap-2 sm:gap-3">
+            <div className="border-primary/50 bg-primary/10 text-primary group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/25 relative flex h-8 w-8 items-center justify-center rounded-lg border font-mono text-xs transition-all duration-400 group-hover:scale-105 group-hover:shadow-lg sm:h-9 sm:w-9 sm:text-sm">
               <span className="glitch">{"HV"}</span>
             </div>
-            <span className="font-mono text-sm tracking-tight">
+            <span className="font-mono text-xs tracking-tight sm:text-sm">
               HEET
-              <span className="from-primary/50 to-accent bg-gradient-to-l bg-clip-text font-semibold text-transparent">
+              <span className="from-primary/50 to-accent bg-linear-to-l bg-clip-text font-semibold text-transparent">
                 VIRADIYA
               </span>
             </span>
@@ -134,7 +134,7 @@ export function Header() {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="border-border bg-card/50 hover:bg-secondary flex h-10 w-10 items-center justify-center rounded-lg border transition-colors md:hidden"
+              className="border-border bg-card/80 hover:bg-secondary flex h-10 w-10 items-center justify-center rounded-lg border shadow-sm backdrop-blur-sm transition-colors md:hidden"
               aria-label="Toggle menu"
             >
               <div className="flex w-5 flex-col gap-1.5">
@@ -165,11 +165,11 @@ export function Header() {
           className={cn(
             "overflow-hidden transition-all duration-400 md:hidden",
             isMobileMenuOpen
-              ? "max-h-96 pt-4 opacity-100"
+              ? "max-h-[500px] pt-4 opacity-100"
               : "max-h-0 opacity-0",
           )}
         >
-          <div className="border-border/50 flex flex-col gap-1 border-t pt-4">
+          <div className="border-border/50 bg-background/95 flex flex-col gap-1 rounded-lg border-t pt-4 backdrop-blur-lg">
             {navItems.map((item, index) => (
               <a
                 key={item.label}
@@ -197,7 +197,7 @@ export function Header() {
                 </a>
               ))}
               <div className="border-border/50 flex h-11 w-11 items-center justify-center rounded-lg border">
-                <ThemeChanger />
+                <ThemeChanger openDirection="up" />
               </div>
               <div className="border-border/50 flex h-11 w-11 items-center justify-center rounded-lg border">
                 <ThemeToggle />

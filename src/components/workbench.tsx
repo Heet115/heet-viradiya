@@ -68,7 +68,7 @@ export function Workbench() {
           <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
             Experience & Education
           </p>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
             Journey
           </h2>
           <p className="text-muted-foreground max-w-2xl text-base leading-relaxed sm:text-lg">
@@ -127,9 +127,9 @@ export function Workbench() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between gap-6 pl-6 sm:justify-end sm:pl-0">
-                  <div className="flex flex-1 items-center gap-3 sm:flex-none">
-                    <div className="bg-secondary/80 relative h-2 w-full overflow-hidden rounded-full sm:w-28">
+                <div className="flex flex-col items-start justify-between gap-4 pl-6 sm:flex-row sm:items-center sm:gap-6 sm:pl-0">
+                  <div className="flex w-full items-center gap-3 sm:w-auto sm:flex-none">
+                    <div className="bg-secondary/80 relative h-2 flex-1 overflow-hidden rounded-full sm:w-28 sm:flex-none">
                       <div
                         className={cn(
                           "h-full rounded-full transition-all duration-700 ease-out",
