@@ -1,94 +1,111 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { cn } from "@/lib/utils"
+import { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
 
 const wipItems = [
   {
     id: 1,
     name: "Strats360 Technolabs LLP",
-    description: "Web development internship - HTML, CSS, Tailwind CSS, JavaScript, team collaboration",
+    description:
+      "Web development internship - HTML, CSS, Tailwind CSS, JavaScript, team collaboration",
     progress: 100,
     lastUpdated: "17 Days",
   },
   {
     id: 2,
     name: "AAN Web Solution",
-    description: "React JS, Firebase, Shadcn/UI, Git and GitHub, version control",
+    description:
+      "React JS, Firebase, Shadcn/UI, Git and GitHub, version control",
     progress: 100,
     lastUpdated: "15 Days",
   },
   {
     id: 3,
     name: "G.M.I.U. - Diploma in IT",
-    description: "Currently pursuing Diploma in Information Technology (2023-2026)",
+    description:
+      "Currently pursuing Diploma in Information Technology (2023-2026)",
     progress: 65,
     lastUpdated: "2023-2026",
   },
-]
+];
 
 export function Workbench() {
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
       { threshold: 0.1 },
-    )
+    );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section ref={sectionRef} id="workbench" className="px-4 sm:px-6 py-20 sm:py-28 border-t border-border/30">
+    <section
+      ref={sectionRef}
+      id="workbench"
+      className="border-border/30 border-t px-4 py-20 sm:px-6 sm:py-28"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className={cn("mb-10 sm:mb-14 space-y-3 opacity-0", isVisible && "animate-fade-in-up")}>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-primary">
+        <div
+          className={cn(
+            "mb-10 space-y-3 opacity-0 sm:mb-14",
+            isVisible && "animate-fade-in-up",
+          )}
+        >
+          <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
             Experience & Education
           </p>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">Journey</h2>
-          <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            My work experience and ongoing learning journey. Building skills through internships and education.
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            Journey
+          </h2>
+          <p className="text-muted-foreground max-w-2xl text-base leading-relaxed sm:text-lg">
+            My work experience and ongoing learning journey. Building skills
+            through internships and education.
           </p>
         </div>
 
         <div
           className={cn(
-            "rounded-xl border border-border bg-card/40 glass backdrop-blur-sm overflow-hidden hover-lift opacity-0",
+            "border-border bg-card/40 glass hover-lift overflow-hidden rounded-xl border opacity-0 backdrop-blur-sm",
             isVisible && "animate-scale-in stagger-2",
           )}
         >
           {/* Terminal header */}
-          <div className="flex items-center gap-3 border-b border-border/50 bg-secondary/40 px-4 sm:px-5 py-3.5 sm:py-4">
+          <div className="border-border/50 bg-secondary/40 flex items-center gap-3 border-b px-4 py-3.5 sm:px-5 sm:py-4">
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-destructive/60 transition-colors hover:bg-destructive cursor-pointer" />
-              <div className="h-3 w-3 rounded-full bg-yellow-500/60 transition-colors hover:bg-yellow-500 cursor-pointer" />
-              <div className="h-3 w-3 rounded-full bg-primary/60 transition-colors hover:bg-primary cursor-pointer" />
+              <div className="bg-destructive/60 hover:bg-destructive h-3 w-3 cursor-pointer rounded-full transition-colors" />
+              <div className="h-3 w-3 cursor-pointer rounded-full bg-yellow-500/60 transition-colors hover:bg-yellow-500" />
+              <div className="bg-primary/60 hover:bg-primary h-3 w-3 cursor-pointer rounded-full transition-colors" />
             </div>
-            <span className="ml-4 font-mono text-xs text-muted-foreground truncate">~/heetviradiya/experience</span>
-            <div className="ml-auto hidden sm:flex items-center gap-2 text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            <span className="text-muted-foreground ml-4 truncate font-mono text-xs">
+              ~/heetviradiya/experience
+            </span>
+            <div className="text-muted-foreground ml-auto hidden items-center gap-2 sm:flex">
+              <span className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
               <span className="font-mono text-xs">live</span>
             </div>
           </div>
 
-          <div className="divide-y divide-border/30">
+          <div className="divide-border/30 divide-y">
             {wipItems.map((item, index) => (
               <a
                 key={item.id}
                 rel="noopener noreferrer"
                 className={cn(
-                  "group flex flex-col gap-4 p-5 sm:p-6 transition-all duration-300 sm:flex-row sm:items-center sm:justify-between opacity-0",
+                  "group flex flex-col gap-4 p-5 opacity-0 transition-all duration-300 sm:flex-row sm:items-center sm:justify-between sm:p-6",
                   isVisible && "animate-fade-in",
                   hoveredItem === item.id && "bg-secondary/30",
                 )}
@@ -96,56 +113,68 @@ export function Workbench() {
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <div className="flex-1 space-y-2 min-w-0">
+                <div className="min-w-0 flex-1 space-y-2">
                   <div className="flex items-center gap-3">
-                    <span className="text-primary font-mono text-sm shrink-0 transition-transform duration-300 group-hover:translate-x-1">
+                    <span className="text-primary shrink-0 font-mono text-sm transition-transform duration-300 group-hover:translate-x-1">
                       $
                     </span>
-                    <h4 className="font-mono text-sm font-medium tracking-tight transition-colors group-hover:text-gradient truncate">
+                    <h4 className="group-hover:text-gradient truncate font-mono text-sm font-medium tracking-tight transition-colors">
                       {item.name}
                     </h4>
                   </div>
-                  <p className="pl-6 text-xs text-muted-foreground line-clamp-2 sm:line-clamp-1">{item.description}</p>
+                  <p className="text-muted-foreground line-clamp-2 pl-6 text-xs sm:line-clamp-1">
+                    {item.description}
+                  </p>
                 </div>
 
-                <div className="flex items-center justify-between gap-6 pl-6 sm:pl-0 sm:justify-end">
-                  <div className="flex items-center gap-3 flex-1 sm:flex-none">
-                    <div className="h-2 w-full sm:w-28 overflow-hidden rounded-full bg-secondary/80 relative">
+                <div className="flex items-center justify-between gap-6 pl-6 sm:justify-end sm:pl-0">
+                  <div className="flex flex-1 items-center gap-3 sm:flex-none">
+                    <div className="bg-secondary/80 relative h-2 w-full overflow-hidden rounded-full sm:w-28">
                       <div
                         className={cn(
                           "h-full rounded-full transition-all duration-700 ease-out",
-                          item.progress >= 80 ? "bg-primary" : item.progress >= 50 ? "bg-yellow-500" : "bg-orange-500",
+                          item.progress >= 80
+                            ? "bg-primary"
+                            : item.progress >= 50
+                              ? "bg-yellow-500"
+                              : "bg-orange-500",
                         )}
                         style={{ width: `${item.progress}%` }}
                       />
                       {/* Shimmer effect */}
-                      <div className="absolute inset-0 animate-shimmer opacity-30" />
+                      <div className="animate-shimmer absolute inset-0 opacity-30" />
                     </div>
                     <span
                       className={cn(
-                        "font-mono text-xs w-10 shrink-0 transition-colors",
-                        item.progress >= 80 ? "text-primary" : "text-muted-foreground",
+                        "w-10 shrink-0 font-mono text-xs transition-colors",
+                        item.progress >= 80
+                          ? "text-primary"
+                          : "text-muted-foreground",
                       )}
                     >
                       {item.progress}%
                     </span>
                   </div>
 
-                  <span className="font-mono text-xs text-muted-foreground shrink-0">{item.lastUpdated}</span>
+                  <span className="text-muted-foreground shrink-0 font-mono text-xs">
+                    {item.lastUpdated}
+                  </span>
                 </div>
               </a>
             ))}
           </div>
 
-          <div className="border-t border-border/50 bg-secondary/30 px-4 sm:px-5 py-4">
-            <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
+          <div className="border-border/50 bg-secondary/30 border-t px-4 py-4 sm:px-5">
+            <div className="text-muted-foreground flex items-center gap-2 font-mono text-xs">
               <span className="text-primary">❯</span>
               <span className="typing-cursor truncate">git status --all</span>
-              <span className="ml-auto text-primary/50 hidden sm:block">press enter to run</span>
+              <span className="text-primary/50 ml-auto hidden sm:block">
+                press enter to run
+              </span>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

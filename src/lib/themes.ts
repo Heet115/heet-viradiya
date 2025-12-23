@@ -224,6 +224,6 @@ export const themes = {
       "glow-color-strong": "oklch(0.70 0.18 20 / 0.22)",
     },
   },
-} as const
+} as const;
 
-export type ThemeColor = keyof typeof themes
+export type ThemeColor = keyof typeof themes;

@@ -17,7 +17,8 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
-    "analyze": "next experimental-analyze"
+    "analyze": "next experimental-analyze",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -79,6 +80,8 @@
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.1",
     "postcss": "^8.5",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"

@@ -31,10 +31,13 @@ Prerequisites
 Quick start
 
 \`\`\`bash
+
 # install dependencies
+
 pnpm install
 
 # run development server
+
 pnpm dev
 \`\`\`
 
