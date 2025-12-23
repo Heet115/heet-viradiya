@@ -1,0 +1,21 @@
+{
+  "name": "Heet Viradiya — IT Student & Web Developer",
+  "short_name": "Heet Viradiya",
+  "description": "Portfolio of Heet Viradiya — IT diploma student with hands-on experience in React, Tailwind CSS, Firebase, and modern web development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
