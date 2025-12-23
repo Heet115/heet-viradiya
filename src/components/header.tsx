@@ -15,10 +15,10 @@ const navItems = [
 ];
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com/heetviradiya", icon: Github },
+  { label: "GitHub", href: "https://github.com/Heet115", icon: Github },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/heetviradiya",
+    href: "https://www.linkedin.com/in/heet-viradiya-919198369",
     icon: Linkedin,
   },
 ];

@@ -148,9 +148,8 @@ export default function RootLayout({
     },
     email: "hpviradiya05@gmail.com",
     sameAs: [
-      "https://github.com/heetviradiya",
-      "https://linkedin.com/in/heetviradiya",
-      "https://twitter.com/heetviradiya",
+      "https://github.com/Heet115",
+      "https://www.linkedin.com/in/heet-viradiya-919198369",
     ],
     knowsAbout: [
       "React",
