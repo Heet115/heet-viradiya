@@ -12,10 +12,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EINCODE — Ehsan Ghaffar's Digital Laboratory",
+  title: "Heet Viradiya — IT Student & Web Developer",
   description:
-    "A digital workshop where code meets curiosity. Experiments, prototypes, and open-source artifacts by Ehsan Ghaffar.",
-  generator: "v0.app",
+    "Portfolio of Heet Viradiya — IT diploma student with hands-on experience in React, Tailwind CSS, Firebase, and modern web development. Based in Bhavnagar, India.",
+  generator: "Next.js",
+  keywords: ["Heet Viradiya", "Web Developer", "React", "Next.js", "Firebase", "Tailwind CSS", "Portfolio", "Bhavnagar"],
+  authors: [{ name: "Heet Viradiya", url: "https://heetviradiya.codes" }],
+  creator: "Heet Viradiya",
   icons: {
     icon: [
       {
@@ -32,6 +35,20 @@ export const metadata: Metadata = {
       },
     ],
     apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: "Heet Viradiya — IT Student & Web Developer",
+    description: "Portfolio of Heet Viradiya — IT diploma student with hands-on experience in React, Tailwind CSS, Firebase, and modern web development.",
+    url: "https://heetviradiya.codes",
+    siteName: "Heet Viradiya",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Heet Viradiya — IT Student & Web Developer",
+    description: "Portfolio of Heet Viradiya — IT diploma student with hands-on experience in React, Tailwind CSS, Firebase, and modern web development.",
+    creator: "@heetviradiya",
   },
 };
 
