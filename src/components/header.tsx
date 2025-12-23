@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
-import { Github, Twitter, Linkedin } from "lucide-react"
+import { Github, Linkedin } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { ThemeChanger } from "./theme-changer"
 import Link from "next/link"
@@ -16,7 +16,6 @@ const navItems = [
 
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/heetviradiya", icon: Github },
-  { label: "Twitter", href: "https://twitter.com/heetviradiya", icon: Twitter },
   { label: "LinkedIn", href: "https://linkedin.com/in/heetviradiya", icon: Linkedin },
 ]
 
