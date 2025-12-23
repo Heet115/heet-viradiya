@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Github, Linkedin, Mail, ExternalLink, Heart } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 
 const socialLinks = [
   {
@@ -27,25 +28,8 @@ const socialLinks = [
 
 export function Footer() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
     <footer
@@ -56,11 +40,11 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left column */}
-          <div
-            className={cn(
-              "space-y-6 opacity-0 sm:space-y-8",
-              isVisible && "animate-fade-in-up",
-            )}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-6 sm:space-y-8"
           >
             <div className="space-y-3">
               <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
@@ -79,45 +63,53 @@ export function Footer() {
             </p>
 
             <div className="pt-2">
-              <a
+              <motion.a
                 href="mailto:hpviradiya05@gmail.com"
-                className="group border-primary bg-primary/10 text-primary hover:text-primary-foreground relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl border px-6 py-3.5 font-mono text-sm transition-all duration-500 active:scale-[0.98] sm:w-auto sm:px-8 sm:py-4"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group border-primary bg-primary/10 text-primary hover:text-primary-foreground relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl border px-6 py-3.5 font-mono text-sm transition-all duration-500 sm:w-auto sm:px-8 sm:py-4"
               >
                 <span className="relative z-10">send a signal</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>
                 <span className="bg-primary absolute inset-0 -translate-x-full transition-transform duration-500 group-hover:translate-x-0" />
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right column - Links */}
-          <div
-            className={cn(
-              "space-y-6 opacity-0 lg:text-right",
-              isVisible && "animate-fade-in-up stagger-2",
-            )}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isInView ? 0.1 : 0 }}
+            className="space-y-6 lg:text-right"
           >
             <p className="text-muted-foreground font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
               Find me elsewhere
             </p>
             <div className="space-y-2">
               {socialLinks.map((link, index) => (
-                <a
+                <motion.a
                   key={link.label}
                   href={link.href}
                   target={link.label !== "Email" ? "_blank" : undefined}
                   rel={
                     link.label !== "Email" ? "noopener noreferrer" : undefined
                   }
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: isInView ? 1 : 0, x: isInView ? 0 : 20 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: isInView ? 0.2 + index * 0.1 : 0
+                  }}
+                  whileHover={{ x: -4 }}
                   className={cn(
-                    "group active:bg-secondary/30 flex items-center justify-between gap-4 rounded-xl border border-transparent p-4 opacity-0 transition-all duration-300 lg:flex-row-reverse",
-                    isVisible && "animate-fade-in",
+                    "group flex items-center justify-between gap-4 rounded-xl border border-transparent p-4 transition-all duration-300 lg:flex-row-reverse",
                     hoveredLink === link.label &&
                       "border-border/50 bg-card/50 glass",
                   )}
-                  style={{ animationDelay: `${index * 100 + 400}ms` }}
                   onMouseEnter={() => setHoveredLink(link.label)}
                   onMouseLeave={() => setHoveredLink(null)}
                 >
@@ -133,17 +125,17 @@ export function Footer() {
                   <span className="text-muted-foreground truncate font-mono text-xs">
                     {link.handle}
                   </span>
-                </a>
+                </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div
-          className={cn(
-            "border-border/30 mt-16 flex flex-col items-center justify-between gap-6 border-t pt-8 opacity-0 sm:mt-20 sm:flex-row sm:pt-10",
-            isVisible && "animate-fade-in stagger-4",
-          )}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isInView ? 0.4 : 0 }}
+          className="border-border/30 mt-16 flex flex-col items-center justify-between gap-6 border-t pt-8 sm:mt-20 sm:flex-row sm:pt-10"
         >
           <div className="text-muted-foreground flex items-center gap-2.5 font-mono text-xs">
             <span className="relative flex h-2 w-2">
@@ -157,23 +149,25 @@ export function Footer() {
 
           <div className="flex items-center gap-4">
             {socialLinks.slice(0, 2).map((link) => (
-              <a
+              <motion.a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="text-muted-foreground/50 hover:text-primary transition-all duration-300 hover:scale-110"
+                whileHover={{ scale: 1.2, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-muted-foreground/50 hover:text-primary transition-all duration-300"
               >
                 <link.icon className="h-5 w-5" />
-              </a>
+              </motion.a>
             ))}
           </div>
 
           <p className="text-muted-foreground text-center font-mono text-xs sm:text-right">
             © {new Date().getFullYear()} HEET VIRADIYA — All rights reserved
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

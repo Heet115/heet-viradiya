@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Github, Star, GitFork, ExternalLink, Sparkles } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const projects = [
   {
@@ -57,50 +59,21 @@ const projects = [
   },
 ];
 
-const filters = ["all", "shipped", "in-progress", "archived"];
-
 export function ProjectsGrid() {
-  const [activeFilter, setActiveFilter] = useState("all");
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const filteredProjects =
-    activeFilter === "all"
-      ? projects
-      : projects.filter((p) => p.status === activeFilter);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="px-4 py-20 sm:px-6 sm:py-28"
-    >
+    <section ref={sectionRef} id="projects" className="px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-          <div
-            className={cn(
-              "space-y-3 opacity-0",
-              isVisible && "animate-fade-in-up",
-            )}
-          >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 flex flex-col gap-6 sm:mb-14"
+        >
+          <div className="space-y-3">
             <p className="text-primary font-mono text-xs tracking-[0.25em] uppercase sm:tracking-[0.35em]">
               Artifacts
             </p>
@@ -108,37 +81,24 @@ export function ProjectsGrid() {
               Open Source Projects
             </h2>
           </div>
-
-          <div
-            className={cn(
-              "scrollbar-hide -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 opacity-0 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0",
-              isVisible && "animate-fade-in-up stagger-2",
-            )}
-          >
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={cn(
-                  "shrink-0 rounded-lg border px-5 py-2.5 font-mono text-xs tracking-wider uppercase transition-all duration-300 active:scale-[0.98]",
-                  activeFilter === filter
-                    ? "border-primary bg-primary/15 text-primary shadow-primary/20 shadow-sm"
-                    : "border-border text-muted-foreground hover:border-foreground/50 hover:text-foreground hover:bg-secondary/50",
-                )}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-        </div>
+        </motion.div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project, index) => (
-            <article
+          {projects.map((project, index) => (
+            <motion.article
               key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+              transition={{ 
+                duration: 0.6, 
+                ease: [0.22, 1, 0.36, 1],
+                delay: isInView ? index * 0.1 : 0
+              }}
+              whileHover={{ y: -6 }}
+              onHoverStart={() => setHoveredProject(project.id)}
+              onHoverEnd={() => setHoveredProject(null)}
               className={cn(
-                "group bg-card/40 glass hover-lift relative overflow-hidden rounded-xl border p-6 opacity-0 transition-all duration-400 active:scale-[0.99] sm:p-7",
-                isVisible && "animate-fade-in-up",
+                "group bg-card/40 glass relative overflow-hidden rounded-xl border p-6 transition-all duration-300 sm:p-7",
                 hoveredProject === project.id && "border-primary/40 bg-card/70",
                 "highlight" in project && project.highlight
                   ? "border-primary/30 from-primary/8 via-card/50 to-primary/8 bg-linear-to-br sm:col-span-2 lg:col-span-2"
@@ -147,9 +107,6 @@ export function ProjectsGrid() {
                   !("highlight" in project && project.highlight) &&
                   "sm:col-span-2 lg:col-span-1",
               )}
-              style={{ animationDelay: `${(index % 6) * 100 + 200}ms` }}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
             >
               {"highlight" in project && project.highlight && (
                 <div className="border-primary/40 bg-primary/15 animate-pulse-glow absolute top-5 left-5 flex items-center gap-2 rounded-full border px-3.5 py-1.5">
@@ -261,7 +218,7 @@ export function ProjectsGrid() {
               </div>
 
               <div className="from-primary via-primary/80 absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r to-transparent transition-all duration-500 group-hover:w-full" />
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

@@ -1,18 +1,28 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
 export function CursorGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    requestAnimationFrame(() => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    });
-    setIsVisible(true);
-  }, []);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+
+  // Smooth spring animation for cursor following
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const smoothX = useSpring(cursorX, springConfig);
+  const smoothY = useSpring(cursorY, springConfig);
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+      setIsVisible(true);
+    },
+    [cursorX, cursorY],
+  );
 
   useEffect(() => {
     const handleMouseLeave = () => {
@@ -40,28 +50,65 @@ export function CursorGlow() {
 
   return (
     <>
-      <div
-        className="cursor-glow pointer-events-none hidden lg:block"
+      {/* Main glow effect */}
+      <motion.div
+        className="cursor-glow pointer-events-none fixed hidden lg:block"
         style={{
-          left: position.x,
-          top: position.y,
+          left: smoothX,
+          top: smoothY,
+          x: "-50%",
+          y: "-50%",
+        }}
+        animate={{
           opacity: isVisible ? 1 : 0,
-          width: isHovering ? "500px" : "400px",
-          height: isHovering ? "500px" : "400px",
-          transition: "opacity 0.4s ease, width 0.3s ease, height 0.3s ease",
+          scale: isHovering ? 1.25 : 1,
+        }}
+        transition={{
+          opacity: { duration: 0.4 },
+          scale: { duration: 0.3, ease: "easeOut" },
         }}
       />
-      <div
+
+      {/* Inner glow dot */}
+      <motion.div
         className="pointer-events-none fixed hidden h-8 w-8 rounded-full mix-blend-screen lg:block"
         style={{
-          left: position.x,
-          top: position.y,
-          transform: "translate(-50%, -50%)",
+          left: smoothX,
+          top: smoothY,
+          x: "-50%",
+          y: "-50%",
           background:
             "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
-          opacity: isVisible ? 0.15 : 0,
-          transition: "opacity 0.2s ease",
           filter: "blur(4px)",
+        }}
+        animate={{
+          opacity: isVisible ? 0.2 : 0,
+          scale: isHovering ? 1.5 : 1,
+        }}
+        transition={{
+          opacity: { duration: 0.2 },
+          scale: { duration: 0.2, ease: "easeOut" },
+        }}
+      />
+
+      {/* Trailing particles effect */}
+      <motion.div
+        className="pointer-events-none fixed hidden h-4 w-4 rounded-full lg:block"
+        style={{
+          left: smoothX,
+          top: smoothY,
+          x: "-50%",
+          y: "-50%",
+          background: "var(--primary)",
+          filter: "blur(8px)",
+        }}
+        animate={{
+          opacity: isVisible ? 0.1 : 0,
+          scale: isHovering ? 2 : 1,
+        }}
+        transition={{
+          opacity: { duration: 0.3 },
+          scale: { duration: 0.4, ease: "easeOut" },
         }}
       />
     </>

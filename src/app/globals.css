@@ -523,3 +523,152 @@
   background: oklch(from var(--primary) l c h / 0.3);
   color: var(--foreground);
 }
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced perspective for 3D transforms */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Magnetic button effect base */
+.magnetic-button {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reveal animation for text */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Blur in animation */
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.animate-blur-in {
+  animation: blur-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Rotate in animation */
+@keyframes rotate-in {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+.animate-rotate-in {
+  animation: rotate-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Bounce subtle animation */
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Glow pulse animation */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px 0 var(--glow-color);
+  }
+  50% {
+    box-shadow: 0 0 40px 10px var(--glow-color-strong);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Text shimmer effect */
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--foreground) 0%,
+    var(--primary) 50%,
+    var(--foreground) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 3s linear infinite;
+}
+
+/* Border animation */
+@keyframes border-dance {
+  0%, 100% {
+    border-color: var(--border);
+  }
+  50% {
+    border-color: var(--primary);
+  }
+}
+
+.animate-border-dance {
+  animation: border-dance 2s ease-in-out infinite;
+}
+
+/* Scale bounce on hover */
+.hover-scale-bounce {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-scale-bounce:hover {
+  transform: scale(1.05);
+}
+
+/* Tilt effect on hover */
+.hover-tilt {
+  transition: transform 0.3s ease;
+}
+
+.hover-tilt:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+}

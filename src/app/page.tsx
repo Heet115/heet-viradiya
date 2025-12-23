@@ -4,6 +4,7 @@ import { ProjectsGrid } from "@/components/projects-grid";
 import { Workbench } from "@/components/workbench";
 import { Footer } from "@/components/footer";
 import { CursorGlow } from "@/components/cursor-glow";
+import { PageTransition } from "@/components/page-transition";
 
 export default function Home() {
   return (
@@ -11,10 +12,12 @@ export default function Home() {
       <CursorGlow />
       <div className="relative z-10">
         <Header />
-        <HeroSection />
-        <ProjectsGrid />
-        <Workbench />
-        <Footer />
+        <PageTransition>
+          <HeroSection />
+          <ProjectsGrid />
+          <Workbench />
+          <Footer />
+        </PageTransition>
       </div>
     </main>
   );
