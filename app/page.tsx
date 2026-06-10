@@ -1,18 +1,158 @@
-import { Button } from "@/components/ui/button"
+"use client"
+
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion"
+import { useEffect, useState } from "react"
+import { Header } from "@/components/header"
+import { BentoCard } from "@/components/bento-card"
+
+// Import our new extracted visual components
+import { AboutVisual } from "@/components/bento-visuals/about-visual"
+import { PortfolioVisual } from "@/components/bento-visuals/portfolio-visual"
+import { ContactVisual } from "@/components/bento-visuals/contact-visual"
+import { ToolsVisual } from "@/components/bento-visuals/tools-visual"
+import { ResumeVisual } from "@/components/bento-visuals/resume-visual"
 
 export default function Page() {
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  // Smooth out the mouse movement for the glow
+  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 })
+  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 })
+
+  useEffect(() => {
+    // Set initial position to center
+    mouseX.set(window.innerWidth / 2)
+    mouseY.set(window.innerHeight / 2)
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [mouseX, mouseY])
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  }
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <div className="relative min-h-screen bg-background font-sans text-foreground selection:bg-primary/30">
+      {/* Dynamic Mouse Spotlight */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <motion.div
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+          className="absolute h-[30vw] max-h-[400px] w-[30vw] max-w-[400px] rounded-full bg-orange-400/20 blur-[100px] md:blur-[100px] dark:bg-blue-500/20"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pt-6 pb-8">
+        <Header />
+
+        {/* Huge Hero Text */}
+        <div className="pointer-events-none mb-0 flex justify-center opacity-80 dark:opacity-90">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={hoveredCard || "Heet Viradiya"}
+              className="flex text-[8vw] leading-none font-bold tracking-tighter select-none"
+            >
+              {(hoveredCard || "Heet Viradiya").split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  className="-mr-[0.05em] inline-block bg-gradient-to-b from-foreground via-foreground/90 to-foreground/10 bg-clip-text pr-[0.05em] text-transparent dark:from-white dark:via-white/90 dark:to-white/10"
+                  initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+                  transition={{
+                    duration: 0.3,
+                    delay: index * 0.02,
+                    ease: "easeOut",
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+
+        {/* Bento Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-rows-[minmax(280px,_auto)_minmax(280px,_auto)]"
+        >
+          {/* About */}
+          <BentoCard
+            title="About"
+            href="/about"
+            className="group relative md:col-span-4"
+            onMouseEnter={() => setHoveredCard("About Me")}
+            onMouseLeave={() => setHoveredCard(null)}
+            visual={<AboutVisual isHovered={hoveredCard === "About Me"} />}
+          />
+
+          {/* Portfolio */}
+          <BentoCard
+            title="Portfolio"
+            href="/portfolio"
+            className="group relative md:col-span-8"
+            onMouseEnter={() => setHoveredCard("My Work")}
+            onMouseLeave={() => setHoveredCard(null)}
+            visual={<PortfolioVisual isHovered={hoveredCard === "My Work"} />}
+          />
+
+          {/* Contact Card */}
+          <BentoCard
+            title="Contact"
+            href="/contact"
+            className="group relative md:col-span-6"
+            onMouseEnter={() => setHoveredCard("Let's Talk")}
+            onMouseLeave={() => setHoveredCard(null)}
+            visual={<ContactVisual isHovered={hoveredCard === "Let's Talk"} />}
+          />
+
+          {/* Tools Card */}
+          <BentoCard
+            title="Stack & Tools"
+            href="/stack"
+            className="group relative md:col-span-3"
+            onMouseEnter={() => setHoveredCard("Stack & Tools")}
+            onMouseLeave={() => setHoveredCard(null)}
+            visual={<ToolsVisual />}
+          />
+
+          {/* Resume Card */}
+          <BentoCard
+            title="Resume"
+            href="/resume"
+            className="group relative md:col-span-3"
+            onMouseEnter={() => setHoveredCard("Experience")}
+            onMouseLeave={() => setHoveredCard(null)}
+            visual={<ResumeVisual />}
+          />
+        </motion.div>
       </div>
     </div>
   )
