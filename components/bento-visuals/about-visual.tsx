@@ -32,7 +32,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
           >
             <div className="mb-1">
               <span className="text-purple-400">role:</span>{" "}
-              <span className="text-green-400">&quot;UI/UX Engineer&quot;</span>
+              <span className="text-green-400">&quot;Full-Stack Developer&quot;</span>
               ,
             </div>
             <div className="mb-1">
@@ -41,7 +41,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
             </div>
             <div>
               <span className="text-purple-400">passion:</span>{" "}
-              <span className="text-green-400">&quot;Creative Code&quot;</span>
+              <span className="text-green-400">&quot;Scalable Systems&quot;</span>
             </div>
           </div>
 

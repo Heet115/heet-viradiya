@@ -2,10 +2,11 @@ import { motion } from "framer-motion"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   LaptopProgrammingIcon,
-  FigmaIcon,
   ReactIcon,
-  GithubIcon,
-  ComputerTerminal01Icon,
+  DatabaseIcon,
+  FireIcon,
+  Typescript01Icon,
+  TailwindcssIcon,
 } from "@hugeicons/core-free-icons"
 
 export function ToolsVisual() {
@@ -34,7 +35,7 @@ export function ToolsVisual() {
         }}
         className="absolute z-10 h-[140px] w-[140px] rounded-full border border-foreground/10 transition-colors duration-500 group-hover:border-foreground/20"
       >
-        {/* Figma */}
+        {/* React */}
         <motion.div
           animate={{ rotate: -360 }}
           transition={{
@@ -45,11 +46,11 @@ export function ToolsVisual() {
           className="absolute -top-5 left-1/2 -ml-5 flex h-10 w-10 items-center justify-center rounded-xl border border-foreground/10 bg-background/80 backdrop-blur-sm shadow-sm transition-all duration-500 group-hover:scale-125 group-hover:bg-background group-hover:shadow-lg group-hover:border-foreground/20"
         >
           <HugeiconsIcon
-            icon={FigmaIcon}
-            className="h-5 w-5 text-[#F24E1E]"
+            icon={ReactIcon}
+            className="h-5 w-5 text-[#61DAFB]"
           />
         </motion.div>
-        {/* React */}
+        {/* TypeScript */}
         <motion.div
           animate={{ rotate: -360 }}
           transition={{
@@ -60,8 +61,8 @@ export function ToolsVisual() {
           className="absolute -bottom-5 left-1/2 -ml-5 flex h-10 w-10 items-center justify-center rounded-xl border border-foreground/10 bg-background/80 backdrop-blur-sm shadow-sm transition-all duration-500 group-hover:scale-125 group-hover:bg-background group-hover:shadow-lg group-hover:border-foreground/20"
         >
           <HugeiconsIcon
-            icon={ReactIcon}
-            className="h-5 w-5 text-[#61DAFB]"
+            icon={Typescript01Icon}
+            className="h-5 w-5 text-[#3178C6]"
           />
         </motion.div>
       </motion.div>
@@ -76,7 +77,7 @@ export function ToolsVisual() {
         }}
         className="absolute z-0 h-[220px] w-[220px] rounded-full border border-foreground/5 transition-colors duration-500 group-hover:border-foreground/15"
       >
-        {/* Github */}
+        {/* Tailwind CSS */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{
@@ -87,11 +88,11 @@ export function ToolsVisual() {
           className="absolute top-1/2 -left-5 -mt-5 flex h-10 w-10 items-center justify-center rounded-xl border border-foreground/10 bg-background/80 backdrop-blur-sm shadow-sm transition-all duration-500 group-hover:scale-125 group-hover:bg-background group-hover:shadow-lg group-hover:border-foreground/20"
         >
           <HugeiconsIcon
-            icon={GithubIcon}
-            className="h-5 w-5 text-foreground"
+            icon={TailwindcssIcon}
+            className="h-5 w-5 text-[#38B2AC]"
           />
         </motion.div>
-        {/* Terminal */}
+        {/* Firebase */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{
@@ -102,8 +103,23 @@ export function ToolsVisual() {
           className="absolute top-1/2 -right-5 -mt-5 flex h-10 w-10 items-center justify-center rounded-xl border border-foreground/10 bg-background/80 backdrop-blur-sm shadow-sm transition-all duration-500 group-hover:scale-125 group-hover:bg-background group-hover:shadow-lg group-hover:border-foreground/20"
         >
           <HugeiconsIcon
-            icon={ComputerTerminal01Icon}
-            className="h-5 w-5 text-[#4ADE80]"
+            icon={FireIcon}
+            className="h-5 w-5 text-[#FFCA28]"
+          />
+        </motion.div>
+        {/* MongoDB */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute -top-5 left-1/2 -ml-5 flex h-10 w-10 items-center justify-center rounded-xl border border-foreground/10 bg-background/80 backdrop-blur-sm shadow-sm transition-all duration-500 group-hover:scale-125 group-hover:bg-background group-hover:shadow-lg group-hover:border-foreground/20"
+        >
+          <HugeiconsIcon
+            icon={DatabaseIcon}
+            className="h-5 w-5 text-[#47A248]"
           />
         </motion.div>
       </motion.div>

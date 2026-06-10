@@ -132,7 +132,7 @@ export function Header() {
         }}
         className="hidden text-sm text-muted-foreground md:block"
       >
-        Creative Developer
+        Full-Stack Developer
       </motion.div>
 
       {/* Right: Time & Theme */}
