@@ -2,53 +2,17 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
-import { useTheme } from "next-themes"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Sun01Icon, Moon02Icon, ArrowLeft01Icon } from "@hugeicons/core-free-icons"
+import { ThemeSwitcher } from "./theme-switcher"
+import { ArrowLeft01Icon } from "@hugeicons/core-free-icons"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 export function Header() {
   const pathname = usePathname()
   const isSubpage = pathname !== "/"
   const [time, setTime] = useState<string>("")
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
 
-  // Ensure mounted to prevent hydration errors with theme
-  useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 0)
-    return () => clearTimeout(timer)
-  }, [])
-
-  // Keyboard shortcut listener for 'D' to toggle theme
-  useEffect(() => {
-    if (!mounted) return
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Ignore if user is typing in an input
-      if (
-        (e.target as HTMLElement).tagName === "INPUT" ||
-        (e.target as HTMLElement).tagName === "TEXTAREA"
-      ) {
-        return
-      }
-
-      if (e.key.toLowerCase() === "d") {
-        setTheme(theme === "dark" ? "light" : "dark")
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [mounted, theme, setTheme])
-
-  // Live Time clock
   useEffect(() => {
     const updateTime = () => {
       const now = new Date()
@@ -150,43 +114,9 @@ export function Header() {
 
         <div className="h-4 w-px bg-foreground/10" />
 
-        {mounted && (
-          <Tooltip delayDuration={300}>
-            <TooltipTrigger asChild>
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-foreground/5 text-muted-foreground transition-all hover:scale-110 hover:bg-foreground/10 hover:text-foreground"
-                aria-label="Toggle theme"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={theme === "dark" ? "dark" : "light"}
-                    initial={{ y: -20, opacity: 0, rotate: -90 }}
-                    animate={{ y: 0, opacity: 1, rotate: 0 }}
-                    exit={{ y: 20, opacity: 0, rotate: 90 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute flex items-center justify-center"
-                  >
-                    {theme === "dark" ? (
-                      <HugeiconsIcon icon={Sun01Icon} className="h-4 w-4" />
-                    ) : (
-                      <HugeiconsIcon icon={Moon02Icon} className="h-4 w-4" />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </button>
-            </TooltipTrigger>
-            <TooltipContent
-              side="bottom"
-              className="mt-1 flex items-center gap-2 rounded-lg bg-foreground px-3 py-1.5 text-xs text-background shadow-xl"
-            >
-              <span>Toggle theme</span>
-              <kbd className="rounded bg-background/20 px-1.5 py-0.5 font-mono text-[10px] uppercase">
-                D
-              </kbd>
-            </TooltipContent>
-          </Tooltip>
-        )}
+        <div className="h-4 w-px bg-foreground/10" />
+
+        <ThemeSwitcher />
       </motion.div>
     </motion.header>
   )

@@ -2,7 +2,6 @@
 
 import { Header } from "@/components/header"
 import { motion } from "framer-motion"
-import Link from "next/link"
 
 export default function AboutPage() {
   return (
