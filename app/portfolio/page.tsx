@@ -55,7 +55,7 @@ export default function PortfolioPage() {
         "Role-based platform with assignment workflows, grading systems, analytics, and automated bulk onboarding.",
       tags: ["Next.js 15", "TypeScript", "MongoDB", "Clerk"],
       github: "https://github.com/Heet115/learnops",
-      live: "hhttps://learnops.vercel.app",
+      live: "https://learnops.vercel.app",
     },
     {
       title: "CampusClaim",
