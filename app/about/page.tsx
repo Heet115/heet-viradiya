@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import { useEffect } from "react"
 import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
 export default function AboutPage() {
   const mouseX = useMotionValue(0)
@@ -82,9 +83,9 @@ export default function AboutPage() {
               style={{ backgroundImage: noiseSvg }}
             />
             <div className="relative z-10 flex max-w-4xl flex-col gap-6">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
+              <h2 className="text-4xl font-bold tracking-tighter sm:text-6xl">
                 Heet Viradiya
-              </h1>
+              </h2>
               <h2 className="text-xl font-medium text-foreground/70 sm:text-2xl">
                 Full-Stack Developer
               </h2>
@@ -248,12 +249,7 @@ export default function AboutPage() {
           </motion.div>
         </motion.div>
 
-        {/* Minimal Footer */}
-        <div className="pointer-events-none mt-24 flex items-center justify-center pb-2 select-none">
-          <span className="font-mono text-[10px] tracking-[0.3em] text-foreground/30 uppercase">
-            © {new Date().getFullYear()} Heet Viradiya
-          </span>
-        </div>
+        <Footer />
       </div>
     </div>
   )

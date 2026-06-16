@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
+import { PageProgress } from "@/components/page-progress"
 
 const SITE_URL = "https://heetviradiya.codes"
 const SITE_NAME = "Heet Viradiya — Full-Stack Developer"
@@ -199,7 +200,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       suppressHydrationWarning
       className={cn(
         "antialiased",
@@ -208,7 +209,21 @@ export default function RootLayout({
         figtree.variable
       )}
     >
+      <head>
+        {/* Preconnect to Google Fonts for faster font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* Theme color — matches dark/light background */}
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5" />
+      </head>
       <body>
+        {/* Page transition progress bar */}
+        <PageProgress />
         {/* JSON-LD: Person */}
         <script
           type="application/ld+json"

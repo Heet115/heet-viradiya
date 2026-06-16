@@ -11,6 +11,7 @@ import {
   GithubIcon,
   ArrowUpRight01Icon,
 } from "@hugeicons/core-free-icons"
+import { Footer } from "@/components/footer"
 
 export default function ContactPage() {
   const mouseX = useMotionValue(0)
@@ -155,7 +156,7 @@ export default function ContactPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 items-start gap-6 sm:grid-cols-12"
+          className="grid grid-cols-1 items-start gap-6 sm:grid-cols-12 md:grid-cols-12"
         >
           {/* Left Column: Direct Connect */}
           <div className="flex flex-col gap-4 sm:col-span-12 md:col-span-5">
@@ -367,12 +368,7 @@ export default function ContactPage() {
           </motion.div>
         </motion.div>
 
-        {/* Minimal Footer */}
-        <div className="pointer-events-none mt-24 flex items-center justify-center pb-2 select-none">
-          <span className="font-mono text-[10px] tracking-[0.3em] text-foreground/30 uppercase">
-            © {new Date().getFullYear()} Heet Viradiya
-          </span>
-        </div>
+        <Footer />
       </div>
     </div>
   )

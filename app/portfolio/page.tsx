@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { Header } from "@/components/header"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowUpRight01Icon, GithubIcon } from "@hugeicons/core-free-icons"
+import { Footer } from "@/components/footer"
 
 export default function PortfolioPage() {
   const mouseX = useMotionValue(0)
@@ -81,7 +82,7 @@ export default function PortfolioPage() {
       description:
         "AI-powered platform using Google Generative AI, featuring recipient profiles, saved collections, and card generation.",
       tags: ["Next.js 15", "React 19", "Firebase", "Google AI"],
-      github: "https://github.com/Heet115/FinTrackX",
+      github: "https://github.com/Heet115/present-perfect",
       live: "https://presentperfect.vercel.app",
     },
     {
@@ -90,7 +91,7 @@ export default function PortfolioPage() {
       description:
         "Platform for tracking income and expenses with real-time synchronization, analytics, and financial reporting.",
       tags: ["Next.js", "Firebase", "TypeScript", "Tailwind CSS"],
-      github: "https://github.com/Heet115/present-perfect",
+      github: "https://github.com/Heet115/FinTrackX",
       live: "https://fin-trackx.vercel.app",
     },
     {
@@ -217,12 +218,7 @@ export default function PortfolioPage() {
           ))}
         </motion.div>
 
-        {/* Minimal Footer */}
-        <div className="pointer-events-none mt-24 flex items-center justify-center pb-2 select-none">
-          <span className="font-mono text-[10px] tracking-[0.3em] text-foreground/30 uppercase">
-            © {new Date().getFullYear()} Heet Viradiya
-          </span>
-        </div>
+        <Footer />
       </div>
     </div>
   )
