@@ -54,8 +54,8 @@ export default function PortfolioPage() {
       description:
         "Role-based platform with assignment workflows, grading systems, analytics, and automated bulk onboarding.",
       tags: ["Next.js 15", "TypeScript", "MongoDB", "Clerk"],
-      github: "https://github.com/Heet115",
-      live: "https://heetviradiya.codes",
+      github: "https://github.com/Heet115/learnops",
+      live: "hhttps://learnops.vercel.app",
     },
     {
       title: "CampusClaim",
@@ -63,8 +63,8 @@ export default function PortfolioPage() {
       description:
         "Centralized platform with advanced search, dispute resolution, and secure item tracking workflows.",
       tags: ["Next.js 16", "NextAuth", "MongoDB", "Tailwind v4"],
-      github: "https://github.com/Heet115",
-      live: "https://heetviradiya.codes",
+      github: "https://github.com/Heet115/campusclaim",
+      live: "https://campusclaim.vercel.app",
     },
     {
       title: "UnconditionalHelp",
@@ -72,8 +72,8 @@ export default function PortfolioPage() {
       description:
         "Platform connecting people seeking assistance with volunteers and organizations through role-based request management.",
       tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-      github: "https://github.com/Heet115",
-      live: "https://heetviradiya.codes",
+      github: "https://github.com/Heet115/unconditionalhelp",
+      live: "https://unconditionalhelp.vercel.app",
     },
     {
       title: "Present Perfect",
@@ -81,8 +81,8 @@ export default function PortfolioPage() {
       description:
         "AI-powered platform using Google Generative AI, featuring recipient profiles, saved collections, and card generation.",
       tags: ["Next.js 15", "React 19", "Firebase", "Google AI"],
-      github: "https://github.com/Heet115",
-      live: "https://heetviradiya.codes",
+      github: "https://github.com/Heet115/FinTrackX",
+      live: "https://presentperfect.vercel.app",
     },
     {
       title: "FinTrackX",
@@ -90,8 +90,8 @@ export default function PortfolioPage() {
       description:
         "Platform for tracking income and expenses with real-time synchronization, analytics, and financial reporting.",
       tags: ["Next.js", "Firebase", "TypeScript", "Tailwind CSS"],
-      github: "https://github.com/Heet115",
-      live: "https://heetviradiya.codes",
+      github: "https://github.com/Heet115/present-perfect",
+      live: "https://fin-trackx.vercel.app",
     },
     {
       title: "RoommateX",
@@ -99,8 +99,8 @@ export default function PortfolioPage() {
       description:
         "Application featuring location-based discovery, real-time messaging, and secure profile management.",
       tags: ["React", "Firebase", "Tailwind CSS"],
-      github: "https://github.com/Heet115",
-      live: "https://heetviradiya.codes",
+      github: "https://github.com/Heet115/roomily",
+      live: "https://roomily.vercel.app",
     },
   ]
 

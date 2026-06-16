@@ -108,7 +108,7 @@ export default function ResumePage() {
                 </div>
               </div>
               <a
-                href="/resume.pdf"
+                href="/Resume.pdf"
                 download
                 className="group flex h-12 items-center gap-2 rounded-full border border-foreground/10 bg-background/50 px-6 font-bold text-foreground transition-all hover:bg-foreground hover:text-background"
               >
