@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://heetviradiya.dev/sitemap.xml",
-    host: "https://heetviradiya.dev",
+    sitemap: "https://heetviradiya.codes/sitemap.xml",
+    host: "https://heetviradiya.codes",
   }
 }
