@@ -62,11 +62,11 @@ export default function Page() {
             translateX: "-50%",
             translateY: "-50%",
           }}
-          className="absolute h-[30vw] max-h-[400px] w-[30vw] max-w-[400px] rounded-full bg-orange-400/20 blur-[100px] md:blur-[100px] dark:bg-blue-500/20"
+          className="absolute h-[30vw] max-h-100 w-[30vw] max-w-100 rounded-full bg-orange-400/20 blur-[100px] md:blur-[100px] dark:bg-blue-500/20"
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pt-6 pb-8">
+      <div className="relative z-10 mx-auto max-w-350 px-6 pt-6 pb-8">
         <Header />
 
         {/* Huge Hero Text */}
@@ -79,7 +79,7 @@ export default function Page() {
               {(hoveredCard || "Heet Viradiya").split("").map((char, index) => (
                 <motion.span
                   key={index}
-                  className="-mr-[0.05em] inline-block bg-gradient-to-b from-foreground via-foreground/90 to-foreground/10 bg-clip-text pr-[0.05em] text-transparent dark:from-white dark:via-white/90 dark:to-white/10"
+                  className="mr-[-0.05em] inline-block bg-linear-to-b from-foreground via-foreground/90 to-foreground/10 bg-clip-text pr-[0.05em] text-transparent dark:from-white dark:via-white/90 dark:to-white/10"
                   initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
@@ -101,7 +101,7 @@ export default function Page() {
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-rows-[minmax(280px,_auto)_minmax(280px,_auto)]"
+          className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-rows-[minmax(280px,auto)_minmax(280px,auto)]"
         >
           {/* About */}
           <BentoCard
@@ -155,8 +155,8 @@ export default function Page() {
         </motion.div>
 
         {/* Minimal Footer */}
-        <div className="mt-24 pb-2 flex items-center justify-center pointer-events-none select-none">
-          <span className="text-[10px] tracking-[0.3em] text-foreground/30 font-mono uppercase">
+        <div className="pointer-events-none mt-24 flex items-center justify-center pb-2 select-none">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-foreground/30 uppercase">
             © {new Date().getFullYear()} Heet Viradiya
           </span>
         </div>

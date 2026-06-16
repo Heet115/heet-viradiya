@@ -8,19 +8,27 @@ export function ToolsVisual({ isHovered }: { isHovered?: boolean }) {
     { x: 80, y: 60 },
     { x: 40, y: 80 },
     { x: 20, y: 60 },
-    { x: 50, y: 50 } // Center node
+    { x: 50, y: 50 }, // Center node
   ]
 
   // Edges connecting the nodes
   const edges = [
-    [0, 5], [1, 5], [2, 5], [3, 5], [4, 5], // All connect to center
-    [0, 1], [1, 2], [2, 3], [3, 4], [4, 0]  // Outer pentagon
+    [0, 5],
+    [1, 5],
+    [2, 5],
+    [3, 5],
+    [4, 5], // All connect to center
+    [0, 1],
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [4, 0], // Outer pentagon
   ]
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6">
-      <div className="relative h-full w-full max-w-[120px] max-h-[120px]">
-        <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
+      <div className="relative h-full max-h-30 w-full max-w-30">
+        <svg viewBox="0 0 100 100" className="h-full w-full overflow-visible">
           {/* Edges */}
           {edges.map(([start, end], i) => (
             <motion.line
@@ -33,14 +41,14 @@ export function ToolsVisual({ isHovered }: { isHovered?: boolean }) {
               strokeWidth="0.5"
               className="text-foreground/20"
               initial={{ pathLength: 0.1, opacity: 0.2 }}
-              animate={{ 
+              animate={{
                 pathLength: isHovered ? 1 : 0.1,
-                opacity: isHovered ? 0.6 : 0.2
+                opacity: isHovered ? 0.6 : 0.2,
               }}
-              transition={{ 
-                duration: 1.5, 
+              transition={{
+                duration: 1.5,
                 ease: "easeOut",
-                delay: isHovered ? i * 0.05 : 0 
+                delay: isHovered ? i * 0.05 : 0,
               }}
             />
           ))}
@@ -55,15 +63,15 @@ export function ToolsVisual({ isHovered }: { isHovered?: boolean }) {
               fill="currentColor"
               className="text-foreground"
               initial={{ scale: 0.5, opacity: 0.3 }}
-              animate={{ 
+              animate={{
                 scale: isHovered ? [1, 1.5, 1] : 1,
-                opacity: isHovered ? 1 : 0.3
+                opacity: isHovered ? 1 : 0.3,
               }}
-              transition={{ 
-                duration: 2, 
-                repeat: isHovered ? Infinity : 0, 
+              transition={{
+                duration: 2,
+                repeat: isHovered ? Infinity : 0,
                 ease: "easeInOut",
-                delay: i * 0.1
+                delay: i * 0.1,
               }}
             />
           ))}

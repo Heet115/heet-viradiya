@@ -50,12 +50,14 @@ export function Header() {
           },
         },
       }}
-      className="group relative mb-12 mt-4 flex h-12 w-fit mx-auto items-center gap-8 rounded-full border border-black/[0.08] dark:border-white/[0.06] bg-black/[0.02] dark:bg-[#111111]/25 px-6 font-medium tracking-tight text-foreground shadow-lg backdrop-blur-[48px] overflow-hidden"
+      className="group relative mx-auto mt-4 mb-12 flex h-12 w-fit items-center gap-8 overflow-hidden rounded-full border border-black/8 bg-black/2 px-6 font-medium tracking-tight text-foreground shadow-lg backdrop-blur-[48px] dark:border-white/6 dark:bg-[#111111]/25"
     >
       {/* Noise Texture Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.06] dark:opacity-[0.12] pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay dark:opacity-[0.12]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
       ></div>
 
       {/* Left: Name / Back Button */}
@@ -64,7 +66,7 @@ export function Header() {
           hidden: { opacity: 0, scale: 0.8 },
           show: { opacity: 1, scale: 1 },
         }}
-        className="flex items-center relative"
+        className="relative flex items-center"
       >
         <AnimatePresence mode="wait">
           {isSubpage ? (
@@ -75,8 +77,14 @@ export function Header() {
               exit={{ opacity: 0, x: 20, filter: "blur(4px)" }}
               transition={{ duration: 0.2 }}
             >
-              <Link href="/" className="group flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground">
-                <HugeiconsIcon icon={ArrowLeft01Icon} className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              <Link
+                href="/"
+                className="group flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <HugeiconsIcon
+                  icon={ArrowLeft01Icon}
+                  className="h-4 w-4 transition-transform group-hover:-translate-x-1"
+                />
                 Back
               </Link>
             </motion.div>
@@ -104,7 +112,7 @@ export function Header() {
         }}
         className="flex items-center gap-4"
       >
-        <div className="flex items-center text-[10px] tracking-widest text-muted-foreground uppercase sm:text-xs sm:tracking-normal sm:normal-case font-mono">
+        <div className="flex items-center font-mono text-[10px] tracking-widest text-muted-foreground uppercase sm:text-xs sm:tracking-normal sm:normal-case">
           <span>{time || "Loading..."}</span>
         </div>
 

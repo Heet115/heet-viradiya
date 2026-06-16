@@ -4,11 +4,13 @@ import { useEffect, useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Sun01Icon, Moon02Icon } from "@hugeicons/core-free-icons"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useTheme } from "next-themes"
 import { flushSync } from "react-dom"
-
-
 
 const THEME_TRANSITION_CSS = `
 ::view-transition-group(root) {
@@ -62,12 +64,14 @@ export function ThemeSwitcher() {
     const isDarkNow = document.documentElement.classList.contains("dark")
     const nextTheme = isDarkNow ? "light" : "dark"
 
-    const doc = document as Document & { startViewTransition?: (callback: () => void) => void }
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void) => void
+    }
 
     // Bypass view transition if unsupported or on mobile devices (< 768px)
     if (
-      typeof window === "undefined" || 
-      !doc.startViewTransition || 
+      typeof window === "undefined" ||
+      !doc.startViewTransition ||
       window.innerWidth < 768
     ) {
       setTheme(nextTheme)
