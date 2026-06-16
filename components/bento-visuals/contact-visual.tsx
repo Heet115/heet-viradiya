@@ -8,7 +8,7 @@ export function ContactVisual({ isHovered }: { isHovered: boolean }) {
       <div className="relative flex h-full w-full items-center justify-center">
         {/* Sonar Ripples */}
         <motion.div
-          className="absolute h-16 w-16 rounded-full border border-foreground/20"
+          className="absolute h-12 w-12 rounded-full border border-foreground/20 sm:h-16 sm:w-16"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{
             scale: isHovered ? [0.8, 2] : 0.8,
@@ -17,7 +17,7 @@ export function ContactVisual({ isHovered }: { isHovered: boolean }) {
           transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
         />
         <motion.div
-          className="absolute h-16 w-16 rounded-full border border-foreground/10"
+          className="absolute h-12 w-12 rounded-full border border-foreground/10 sm:h-16 sm:w-16"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{
             scale: isHovered ? [0.8, 2.5] : 0.8,
@@ -33,7 +33,7 @@ export function ContactVisual({ isHovered }: { isHovered: boolean }) {
 
         {/* Center Icon */}
         <motion.div
-          className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-foreground/10 bg-background/50 shadow-sm backdrop-blur-md"
+          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-foreground/10 bg-background/50 shadow-sm backdrop-blur-md sm:h-12 sm:w-12"
           animate={{
             scale: isHovered ? 1.05 : 1,
             boxShadow: isHovered

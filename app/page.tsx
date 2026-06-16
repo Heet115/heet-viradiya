@@ -102,13 +102,13 @@ export default function Page() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-rows-[minmax(280px,auto)_minmax(280px,auto)]"
+          className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-12 md:grid-rows-[minmax(280px,auto)_minmax(280px,auto)]"
         >
           {/* About */}
           <BentoCard
             title="About"
             href="/about"
-            className="group relative md:col-span-4"
+            className="group relative sm:col-span-5 md:col-span-4"
             onMouseEnter={() => setHoveredCard("About Me")}
             onMouseLeave={() => setHoveredCard(null)}
             visual={<AboutVisual isHovered={hoveredCard === "About Me"} />}
@@ -118,7 +118,7 @@ export default function Page() {
           <BentoCard
             title="Portfolio"
             href="/portfolio"
-            className="group relative md:col-span-8"
+            className="group relative sm:col-span-7 md:col-span-8"
             onMouseEnter={() => setHoveredCard("My Work")}
             onMouseLeave={() => setHoveredCard(null)}
             visual={<PortfolioVisual isHovered={hoveredCard === "My Work"} />}
@@ -128,7 +128,7 @@ export default function Page() {
           <BentoCard
             title="Contact"
             href="/contact"
-            className="group relative md:col-span-6"
+            className="group relative sm:col-span-12 md:col-span-6"
             onMouseEnter={() => setHoveredCard("Let's Talk")}
             onMouseLeave={() => setHoveredCard(null)}
             visual={<ContactVisual isHovered={hoveredCard === "Let's Talk"} />}
@@ -138,7 +138,7 @@ export default function Page() {
           <BentoCard
             title="Stack & Tools"
             href="/stack"
-            className="group relative md:col-span-3"
+            className="group relative sm:col-span-6 md:col-span-3"
             onMouseEnter={() => setHoveredCard("Stack & Tools")}
             onMouseLeave={() => setHoveredCard(null)}
             visual={<ToolsVisual isHovered={hoveredCard === "Stack & Tools"} />}
@@ -148,7 +148,7 @@ export default function Page() {
           <BentoCard
             title="Resume"
             href="/resume"
-            className="group relative md:col-span-3"
+            className="group relative sm:col-span-6 md:col-span-3"
             onMouseEnter={() => setHoveredCard("Experience")}
             onMouseLeave={() => setHoveredCard(null)}
             visual={<ResumeVisual isHovered={hoveredCard === "Experience"} />}

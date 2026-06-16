@@ -5,6 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --breakpoint-sm: 700px;
+    --breakpoint-md: 1025px;
+    --breakpoint-lg: 1440px;
+    
     --font-heading: var(--font-sans);
     --font-sans: var(--font-sans);
     --color-sidebar-ring: var(--sidebar-ring);

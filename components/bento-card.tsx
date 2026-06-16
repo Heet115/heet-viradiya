@@ -55,7 +55,7 @@ export function BentoCard({
         href ? "cursor-pointer" : "cursor-default",
         "transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5",
         // Refined glassmorphism classes:
-        "rounded-[2.5rem] border-black/8! bg-black/2! p-10 backdrop-blur-[48px] dark:border-white/6! dark:bg-[#111111]/25!"
+        "rounded-[2.5rem] border-black/8! bg-black/2! p-6 sm:p-8 md:p-10 backdrop-blur-[48px] dark:border-white/6! dark:bg-[#111111]/25!"
       )}
     >
       {/* Noise Texture Overlay */}

@@ -5,7 +5,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
       {/* Background ambient glow */}
       <div
-        className="absolute h-32 w-32 rounded-full bg-foreground/5 blur-3xl transition-all duration-1000 ease-out"
+        className="absolute h-24 w-24 rounded-full bg-foreground/5 blur-3xl transition-all duration-1000 ease-out sm:h-32 sm:w-32"
         style={{
           transform: isHovered ? "scale(1.5)" : "scale(1)",
           opacity: isHovered ? 1 : 0.5,
@@ -14,7 +14,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
 
       {/* Minimal Abstract Rings */}
       <div className="relative flex h-full w-full items-center justify-center">
-        <svg viewBox="0 0 100 100" className="h-32 w-32 overflow-visible">
+        <svg viewBox="0 0 100 100" className="h-24 w-24 overflow-visible sm:h-32 sm:w-32">
           {/* Inner ring */}
           <motion.circle
             cx="50"

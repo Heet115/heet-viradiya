@@ -5,7 +5,7 @@ export function PortfolioVisual({ isHovered }: { isHovered: boolean }) {
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
       {/* Background ambient glow */}
       <div
-        className="absolute h-40 w-40 rounded-full bg-foreground/5 blur-3xl transition-all duration-1000 ease-out"
+        className="absolute h-32 w-32 rounded-full bg-foreground/5 blur-3xl transition-all duration-1000 ease-out sm:h-40 sm:w-40"
         style={{
           transform: isHovered ? "scale(1.2)" : "scale(1)",
           opacity: isHovered ? 1 : 0.3,
@@ -19,7 +19,7 @@ export function PortfolioVisual({ isHovered }: { isHovered: boolean }) {
       >
         {/* Bottom Card */}
         <motion.div
-          className="absolute h-24 w-40 rounded-xl border border-foreground/10 bg-background/40 shadow-lg backdrop-blur-md"
+          className="absolute h-20 w-32 rounded-xl border border-foreground/10 bg-background/40 shadow-lg backdrop-blur-md sm:h-24 sm:w-40"
           initial={{ y: 0, rotateZ: 0, scale: 0.9, opacity: 0.5 }}
           animate={{
             y: isHovered ? -20 : 0,
@@ -32,7 +32,7 @@ export function PortfolioVisual({ isHovered }: { isHovered: boolean }) {
 
         {/* Middle Card */}
         <motion.div
-          className="absolute h-24 w-40 rounded-xl border border-foreground/10 bg-background/60 shadow-xl backdrop-blur-md"
+          className="absolute h-20 w-32 rounded-xl border border-foreground/10 bg-background/60 shadow-xl backdrop-blur-md sm:h-24 sm:w-40"
           initial={{ y: 0, rotateZ: 0, scale: 0.95, opacity: 0.7 }}
           animate={{
             y: isHovered ? -10 : 0,
@@ -45,7 +45,7 @@ export function PortfolioVisual({ isHovered }: { isHovered: boolean }) {
 
         {/* Top Card */}
         <motion.div
-          className="absolute flex h-24 w-40 items-center justify-center rounded-xl border border-foreground/20 bg-background/80 shadow-2xl backdrop-blur-xl"
+          className="absolute flex h-20 w-32 items-center justify-center rounded-xl border border-foreground/20 bg-background/80 shadow-2xl backdrop-blur-xl sm:h-24 sm:w-40"
           initial={{ y: 0, rotateZ: 0, scale: 1 }}
           animate={{
             y: isHovered ? 0 : 0,

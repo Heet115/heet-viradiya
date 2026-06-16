@@ -84,9 +84,9 @@ export default function ResumePage() {
 
           <div className="relative z-10 flex flex-col gap-16">
             {/* Header Section */}
-            <div className="flex flex-col items-start justify-between gap-6 border-b border-foreground/10 pb-10 md:flex-row md:items-end">
+            <div className="flex flex-col items-start justify-between gap-6 border-b border-foreground/10 pb-10 sm:flex-row sm:items-end">
               <div className="flex flex-col gap-3">
-                <h1 className="text-4xl font-bold tracking-tighter md:text-5xl">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
                   Heet Viradiya
                 </h1>
                 <p className="text-xl font-medium text-foreground/70">
@@ -126,7 +126,7 @@ export default function ResumePage() {
                 Selected Projects
               </h2>
 
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <h3 className="text-base font-bold">LearnOps</h3>
                   <p className="mb-1 font-mono text-xs text-muted-foreground">
@@ -176,7 +176,7 @@ export default function ResumePage() {
             </div>
 
             {/* Education & Skills Section */}
-            <div className="grid grid-cols-1 gap-12 border-t border-foreground/10 pt-10 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-12 border-t border-foreground/10 pt-10 sm:grid-cols-2">
               <div className="flex flex-col gap-8">
                 <h2 className="text-2xl font-bold tracking-tight">Education</h2>
                 <div className="flex flex-col gap-6">

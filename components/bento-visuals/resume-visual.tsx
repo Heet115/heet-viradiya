@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 export function ResumeVisual({ isHovered }: { isHovered?: boolean }) {
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
-      <div className="relative flex h-48 w-12 flex-col items-center">
+      <div className="relative flex h-32 w-12 flex-col items-center sm:h-48">
         {/* The minimal timeline line */}
         <div className="absolute top-0 bottom-0 w-px bg-foreground/10" />
 

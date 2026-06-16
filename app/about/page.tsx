@@ -68,14 +68,14 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-12"
+          className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-12"
         >
           {/* Card 1: Professional Summary */}
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:p-12 md:col-span-12 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-12 sm:p-12 dark:border-white/6 dark:bg-[#111111]/25"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
@@ -104,7 +104,7 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] md:col-span-6 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-6 dark:border-white/6 dark:bg-[#111111]/25"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
@@ -155,7 +155,7 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] md:col-span-6 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-6 dark:border-white/6 dark:bg-[#111111]/25"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
@@ -201,7 +201,7 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] md:col-span-12 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-12 dark:border-white/6 dark:bg-[#111111]/25"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"

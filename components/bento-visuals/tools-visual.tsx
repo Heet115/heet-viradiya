@@ -27,7 +27,7 @@ export function ToolsVisual({ isHovered }: { isHovered?: boolean }) {
 
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
-      <div className="relative h-full max-h-30 w-full max-w-30">
+      <div className="relative h-full max-h-24 w-full max-w-24 sm:max-h-30 sm:max-w-30">
         <svg viewBox="0 0 100 100" className="h-full w-full overflow-visible">
           {/* Edges */}
           {edges.map(([start, end], i) => (

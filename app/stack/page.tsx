@@ -48,7 +48,7 @@ export default function StackPage() {
   const categories = [
     {
       title: "Frontend Development",
-      colSpan: "md:col-span-7",
+      colSpan: "sm:col-span-12 md:col-span-7",
       skills: [
         "Next.js",
         "React",
@@ -62,7 +62,7 @@ export default function StackPage() {
     },
     {
       title: "Backend & Database",
-      colSpan: "md:col-span-5",
+      colSpan: "sm:col-span-12 md:col-span-5",
       skills: [
         "Node.js",
         "REST APIs",
@@ -73,17 +73,17 @@ export default function StackPage() {
     },
     {
       title: "Auth & Cloud",
-      colSpan: "md:col-span-6",
+      colSpan: "sm:col-span-6 md:col-span-6",
       skills: ["Clerk", "NextAuth", "Vercel", "Cloudinary", "Vercel Blob"],
     },
     {
       title: "Development Tools",
-      colSpan: "md:col-span-6",
+      colSpan: "sm:col-span-6 md:col-span-6",
       skills: ["Git", "GitHub", "VS Code", "AI IDE"],
     },
     {
       title: "AI & Productivity",
-      colSpan: "md:col-span-12",
+      colSpan: "sm:col-span-12 md:col-span-12",
       skills: [
         "Google Generative AI",
         "AI-Assisted Development",
@@ -124,7 +124,7 @@ export default function StackPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 gap-6 md:grid-cols-12"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-12"
         >
           {categories.map((category) => (
             <motion.div
