@@ -66,7 +66,8 @@ export default function AboutPage() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-12"
         >
           {/* Card 1: Professional Summary */}

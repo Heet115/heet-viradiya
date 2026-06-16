@@ -121,7 +121,8 @@ export default function ContactPage() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 items-start gap-6 md:grid-cols-12"
         >
           {/* Left Column: Direct Connect */}

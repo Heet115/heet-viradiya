@@ -122,7 +122,8 @@ export default function StackPage() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 gap-6 md:grid-cols-12"
         >
           {categories.map((category) => (

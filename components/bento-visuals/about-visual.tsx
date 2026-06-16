@@ -24,7 +24,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
             stroke="currentColor"
             strokeWidth="0.5"
             className="text-foreground/40 dark:text-foreground/30"
-            initial={{ pathLength: 0, rotate: -90 }}
+            initial={{ pathLength: 0, rotate: -90, opacity: 0.5 }}
             animate={{
               pathLength: isHovered ? 1 : 0.2,
               rotate: isHovered ? 270 : -90,
@@ -41,7 +41,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
             stroke="currentColor"
             strokeWidth="0.5"
             className="text-foreground/20"
-            initial={{ pathLength: 0.1, rotate: 0 }}
+            initial={{ pathLength: 0.1, rotate: 0, opacity: 0.3 }}
             animate={{
               pathLength: isHovered ? 0.8 : 0.1,
               rotate: isHovered ? 180 : 0,
@@ -59,7 +59,7 @@ export function AboutVisual({ isHovered }: { isHovered: boolean }) {
             stroke="currentColor"
             strokeWidth="0.5"
             className="text-foreground/10"
-            initial={{ pathLength: 0.2, rotate: 90 }}
+            initial={{ pathLength: 0.2, rotate: 90, opacity: 0.2 }}
             animate={{
               pathLength: isHovered ? 0.6 : 0.2,
               rotate: isHovered ? -90 : 90,

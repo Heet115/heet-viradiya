@@ -100,7 +100,8 @@ export default function Page() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-rows-[minmax(280px,auto)_minmax(280px,auto)]"
         >
           {/* About */}

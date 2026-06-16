@@ -73,7 +73,8 @@ export default function ResumePage() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className="relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:p-12 md:p-16 dark:border-white/6 dark:bg-[#111111]/25"
         >
           <div

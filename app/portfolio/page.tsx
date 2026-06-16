@@ -134,7 +134,8 @@ export default function PortfolioPage() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
           {projects.map((project) => (
