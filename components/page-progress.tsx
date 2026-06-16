@@ -43,7 +43,7 @@ export function PageProgress() {
   }, [pathname])
 
   return (
-    <div className="pointer-events-none fixed top-0 right-0 left-0 z-[9999] h-[2px]">
+    <div className="pointer-events-none fixed top-0 right-0 left-0 z-9999 h-0.5">
       <div
         ref={barRef}
         className="h-full bg-foreground"

@@ -10,6 +10,7 @@ import {
   Mail01Icon,
   GithubIcon,
   ArrowUpRight01Icon,
+  CheckmarkCircle04Icon,
 } from "@hugeicons/core-free-icons"
 import { Footer } from "@/components/footer"
 
@@ -233,8 +234,8 @@ export default function ContactPage() {
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
                 className="relative z-10 flex flex-col items-center justify-center gap-6 py-12 text-center"
               >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-2xl">
-                  ✓
+                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-2xl text-green-500 dark:text-green-400">
+                  <HugeiconsIcon icon={CheckmarkCircle04Icon} className="h-8 w-8" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold tracking-tight">
