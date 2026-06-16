@@ -8,10 +8,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { useTheme } from "next-themes"
 import { flushSync } from "react-dom"
 
-// Extend the global Document interface for the experimental View Transitions API
-interface ViewTransitionDocument extends Document {
-  startViewTransition?: (callback: () => void) => void;
-}
+
 
 const THEME_TRANSITION_CSS = `
 ::view-transition-group(root) {
@@ -65,7 +62,7 @@ export function ThemeSwitcher() {
     const isDarkNow = document.documentElement.classList.contains("dark")
     const nextTheme = isDarkNow ? "light" : "dark"
 
-    const doc = document as ViewTransitionDocument
+    const doc = document as Document & { startViewTransition?: (callback: () => void) => void }
 
     // Bypass view transition if unsupported or on mobile devices (< 768px)
     if (
