@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { Card } from "@/components/ui/card";
@@ -22,75 +22,52 @@ interface BentoCardProps {
 }
 
 export function BentoCard({ title, className, children, visual, showArrow = true, href, onMouseEnter, onMouseLeave }: BentoCardProps) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-    if (onMouseLeave) onMouseLeave();
-  };
-
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 40, scale: 0.95 },
     show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 20 } },
   };
 
+  const noiseSvg = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`;
+
   const CardContent = (
       <MotionCard
         variants={itemVariants}
-        onMouseMove={handleMouseMove}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
+        onMouseLeave={onMouseLeave}
+        whileHover={{ scale: 0.99 }}
+        whileTap={{ scale: 0.98 }}
         className={cn(
           "group relative flex h-full w-full flex-col justify-end overflow-hidden",
           href ? "cursor-pointer" : "cursor-default",
-          "transition-[box-shadow,border-color,background-color] duration-500 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5",
-          "!bg-black/[0.03] dark:!bg-white/[0.02] !border-black/[0.08] dark:!border-white/[0.08] backdrop-blur-[32px] rounded-[2.5rem] p-10"
+          "transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5",
+          // Refined glassmorphism classes:
+          "!bg-black/[0.02] dark:!bg-[#111111]/25 !border-black/[0.08] dark:!border-white/[0.06] backdrop-blur-[48px] rounded-[2.5rem] p-10"
         )}
       >
+        {/* Noise Texture Overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.06] dark:opacity-[0.12] pointer-events-none mix-blend-overlay"
+          style={{ backgroundImage: noiseSvg }}
+        ></div>
+
         <div 
           className="absolute inset-0 bg-gradient-to-t from-black/5 dark:from-black/40 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ transform: "translateZ(-10px)" }}
         ></div>
         
         {visual && (
-          <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center" style={{ transform: "translateZ(0px)" }}>
+          <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
             {visual}
           </div>
         )}
 
-        {children && <div className="relative z-10 mb-4" style={{ transform: "translateZ(20px)" }}>{children}</div>}
+        {children && <div className="relative z-10 mb-4">{children}</div>}
 
-        <div className="relative z-10 flex w-full items-end justify-between mt-auto" style={{ transform: "translateZ(30px)" }}>
+        <div className="relative z-10 flex w-full items-end justify-between mt-auto">
           {title && <span className="text-lg font-medium tracking-tight text-foreground">{title}</span>}
           {showArrow && href && (
             <HugeiconsIcon
               icon={ArrowUpRight01Icon}
-              className="h-5 w-5 text-muted-foreground transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-foreground"
+              className="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-foreground"
             />
           )}
         </div>
@@ -98,7 +75,7 @@ export function BentoCard({ title, className, children, visual, showArrow = true
   );
 
   return (
-    <div className={cn("relative perspective-[1200px]", className)}>
+    <div className={cn("relative", className)}>
       {href ? (
         <Link href={href} className="block h-full w-full outline-none">
           {CardContent}

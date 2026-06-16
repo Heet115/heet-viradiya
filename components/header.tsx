@@ -50,15 +50,21 @@ export function Header() {
           },
         },
       }}
-      className="mb-8 flex h-14 w-full items-center justify-between rounded-full border border-foreground/10 bg-background/60 px-6 font-medium tracking-tight text-foreground shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(255,255,255,0.02)]"
+      className="group relative mb-12 mt-4 flex h-12 w-fit mx-auto items-center gap-8 rounded-full border border-black/[0.08] dark:border-white/[0.06] bg-black/[0.02] dark:bg-[#111111]/25 px-6 font-medium tracking-tight text-foreground shadow-lg backdrop-blur-[48px] overflow-hidden"
     >
+      {/* Noise Texture Overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.06] dark:opacity-[0.12] pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      ></div>
+
       {/* Left: Name / Back Button */}
       <motion.div
         variants={{
           hidden: { opacity: 0, scale: 0.8 },
           show: { opacity: 1, scale: 1 },
         }}
-        className="flex items-center gap-3 relative min-w-[120px]"
+        className="flex items-center relative"
       >
         <AnimatePresence mode="wait">
           {isSubpage ? (
@@ -82,22 +88,13 @@ export function Header() {
               exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
               transition={{ duration: 0.2 }}
             >
-              <span className="text-sm font-bold">Heet Viradiya</span>
+              <span className="text-sm font-bold tracking-widest">HV</span>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
 
-      {/* Center: Role */}
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, scale: 0.8 },
-          show: { opacity: 1, scale: 1 },
-        }}
-        className="hidden text-sm text-muted-foreground md:block"
-      >
-        Full-Stack Developer
-      </motion.div>
+      {/* Center: Removed for minimalism */}
 
       {/* Right: Time & Theme */}
       <motion.div
@@ -107,12 +104,9 @@ export function Header() {
         }}
         className="flex items-center gap-4"
       >
-        <div className="flex flex-col items-end text-[10px] tracking-widest text-muted-foreground uppercase sm:flex-row sm:items-center sm:gap-2 sm:text-xs sm:tracking-normal sm:normal-case">
-          <span className="hidden sm:inline">Bhavnagar •</span>
+        <div className="flex items-center text-[10px] tracking-widest text-muted-foreground uppercase sm:text-xs sm:tracking-normal sm:normal-case font-mono">
           <span>{time || "Loading..."}</span>
         </div>
-
-        <div className="h-4 w-px bg-foreground/10" />
 
         <div className="h-4 w-px bg-foreground/10" />
 

@@ -140,7 +140,7 @@ export default function Page() {
             className="group relative md:col-span-3"
             onMouseEnter={() => setHoveredCard("Stack & Tools")}
             onMouseLeave={() => setHoveredCard(null)}
-            visual={<ToolsVisual />}
+            visual={<ToolsVisual isHovered={hoveredCard === "Stack & Tools"} />}
           />
 
           {/* Resume Card */}
@@ -150,9 +150,16 @@ export default function Page() {
             className="group relative md:col-span-3"
             onMouseEnter={() => setHoveredCard("Experience")}
             onMouseLeave={() => setHoveredCard(null)}
-            visual={<ResumeVisual />}
+            visual={<ResumeVisual isHovered={hoveredCard === "Experience"} />}
           />
         </motion.div>
+
+        {/* Minimal Footer */}
+        <div className="mt-24 pb-2 flex items-center justify-center pointer-events-none select-none">
+          <span className="text-[10px] tracking-[0.3em] text-foreground/30 font-mono uppercase">
+            © {new Date().getFullYear()} Heet Viradiya
+          </span>
+        </div>
       </div>
     </div>
   )
