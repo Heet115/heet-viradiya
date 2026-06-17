@@ -1,16 +1,18 @@
 "use client"
 
 import {
-  motion,
-  useMotionValue,
-  useSpring,
   AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
 } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Header } from "@/components/header"
 import { BentoCard } from "@/components/bento-card"
 import { Footer } from "@/components/footer"
 import { HomeDock } from "@/components/home-dock"
+import { MotionBackdrop } from "@/components/scroll-effects"
 
 // Import our new extracted visual components
 import { AboutVisual } from "@/components/bento-visuals/about-visual"
@@ -21,26 +23,12 @@ import { ResumeVisual } from "@/components/bento-visuals/resume-visual"
 
 export default function Page() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  // Smooth out the mouse movement for the glow
-  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 })
-  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 })
-
-  useEffect(() => {
-    // Set initial position to center
-    mouseX.set(window.innerWidth / 2)
-    mouseY.set(window.innerHeight / 2)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [mouseX, mouseY])
+  const shouldReduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll()
+  const heroY = useTransform(scrollYProgress, [0, 0.28], [0, -90])
+  const heroScale = useTransform(scrollYProgress, [0, 0.28], [1, 0.92])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0.22])
+  const gridY = useTransform(scrollYProgress, [0, 0.5], [0, -32])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -55,24 +43,21 @@ export default function Page() {
 
   return (
     <div className="relative min-h-screen bg-background font-sans text-foreground selection:bg-primary/30">
-      {/* Dynamic Mouse Spotlight */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <motion.div
-          style={{
-            x: smoothX,
-            y: smoothY,
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-          className="absolute h-[30vw] max-h-100 w-[30vw] max-w-100 rounded-full bg-orange-400/20 blur-[100px] md:blur-[100px] dark:bg-blue-500/20"
-        />
-      </div>
+      {/* Scroll-aware ambient backdrop */}
+      <MotionBackdrop />
 
       <div className="relative z-10 mx-auto max-w-350 px-6 pt-6 pb-28">
         <Header />
 
         {/* Huge Hero Text */}
-        <div className="pointer-events-none mb-0 flex justify-center opacity-80 dark:opacity-90">
+        <motion.div
+          style={
+            shouldReduceMotion
+              ? undefined
+              : { y: heroY, scale: heroScale, opacity: heroOpacity }
+          }
+          className="pointer-events-none mb-0 flex justify-center opacity-80 will-change-transform dark:opacity-90"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={hoveredCard || "Heet Viradiya"}
@@ -96,14 +81,15 @@ export default function Page() {
               ))}
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Bento Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, amount: 0.22, margin: "0px 0px -12% 0px" }}
+          style={shouldReduceMotion ? undefined : { y: gridY }}
           className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-12 md:grid-rows-[minmax(280px,auto)_minmax(280px,auto)]"
         >
           {/* About */}

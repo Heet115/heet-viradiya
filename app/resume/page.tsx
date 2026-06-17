@@ -1,7 +1,6 @@
 "use client"
 
-import { motion, useMotionValue, useSpring } from "framer-motion"
-import { useEffect } from "react"
+import { motion, useReducedMotion } from "framer-motion"
 import { Header } from "@/components/header"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
@@ -11,81 +10,95 @@ import {
   Mail01Icon,
 } from "@hugeicons/core-free-icons"
 import { Footer } from "@/components/footer"
+import { MotionBackdrop, ScrollReveal } from "@/components/scroll-effects"
 
 export default function ResumePage() {
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const shouldReduceMotion = useReducedMotion()
 
-  // Smooth out the mouse movement for the glow
-  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 })
-  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 })
+  const containerVariants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1 },
+        show: { opacity: 1 },
+      }
+    : {
+        hidden: { opacity: 0, y: 78, scale: 0.94, filter: "blur(14px)" },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          transition: { type: "spring" as const, stiffness: 170, damping: 21 },
+        },
+      }
 
-  useEffect(() => {
-    mouseX.set(window.innerWidth / 2)
-    mouseY.set(window.innerHeight / 2)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [mouseX, mouseY])
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 40 },
+  const sectionContainerVariants = {
+    hidden: { opacity: 1 },
     show: {
       opacity: 1,
-      y: 0,
-      transition: { type: "spring" as const, stiffness: 200, damping: 20 },
+      transition: { staggerChildren: 0.12, delayChildren: 0.12 },
     },
   }
+
+  const sectionVariants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1 },
+        show: { opacity: 1 },
+      }
+    : {
+        hidden: { opacity: 0, y: 34, filter: "blur(10px)" },
+        show: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: {
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        },
+      }
 
   const noiseSvg = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
 
   return (
     <div className="relative min-h-screen bg-background font-sans text-foreground selection:bg-primary/30">
-      {/* Dynamic Mouse Spotlight */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <motion.div
-          style={{
-            x: smoothX,
-            y: smoothY,
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-          className="absolute h-[30vw] max-h-100 w-[30vw] max-w-100 rounded-full bg-orange-400/20 blur-[100px] md:blur-[100px] dark:bg-blue-500/20"
-        />
-      </div>
+      <MotionBackdrop />
 
       <div className="relative z-10 mx-auto max-w-250 px-6 pt-6 pb-8">
         <Header />
 
-        <div className="mb-12 text-center">
+        <ScrollReveal className="mb-12 text-center" distance={38}>
           <h1 className="mb-4 bg-linear-to-b from-foreground to-foreground/50 bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-6xl">
             Resume
           </h1>
           <p className="text-lg text-muted-foreground">
             My professional experience and academic background.
           </p>
-        </div>
+        </ScrollReveal>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:p-12 md:p-16 dark:border-white/8 dark:bg-white/[0.04]"
+          viewport={{ once: false, amount: 0.16, margin: "0px 0px -12% 0px" }}
+          className="relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl will-change-transform sm:p-12 md:p-16 dark:border-white/8 dark:bg-white/[0.04]"
         >
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
             style={{ backgroundImage: noiseSvg }}
           />
 
-          <div className="relative z-10 flex flex-col gap-16">
+          <motion.div
+            variants={sectionContainerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0.18, margin: "0px 0px -12% 0px" }}
+            className="relative z-10 flex flex-col gap-16"
+          >
             {/* Header Section */}
-            <div className="flex flex-col items-start justify-between gap-6 border-b border-foreground/10 pb-10 sm:flex-row sm:items-end">
+            <motion.div
+              variants={sectionVariants}
+              className="flex flex-col items-start justify-between gap-6 border-b border-foreground/10 pb-10 sm:flex-row sm:items-end"
+            >
               <div className="flex flex-col gap-3">
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
                   Heet Viradiya
@@ -119,10 +132,13 @@ export default function ResumePage() {
                   className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-1"
                 />
               </a>
-            </div>
+            </motion.div>
 
             {/* Projects Section */}
-            <div className="flex flex-col gap-8">
+            <motion.div
+              variants={sectionVariants}
+              className="flex flex-col gap-8"
+            >
               <h2 className="text-2xl font-bold tracking-tight">
                 Selected Projects
               </h2>
@@ -174,10 +190,13 @@ export default function ResumePage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Education & Skills Section */}
-            <div className="grid grid-cols-1 gap-12 border-t border-foreground/10 pt-10 sm:grid-cols-2">
+            <motion.div
+              variants={sectionVariants}
+              className="grid grid-cols-1 gap-12 border-t border-foreground/10 pt-10 sm:grid-cols-2"
+            >
               <div className="flex flex-col gap-8">
                 <h2 className="text-2xl font-bold tracking-tight">Education</h2>
                 <div className="flex flex-col gap-6">
@@ -222,8 +241,8 @@ export default function ResumePage() {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         <Footer />

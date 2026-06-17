@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, Variants } from "framer-motion"
+import { motion, useReducedMotion, Variants } from "framer-motion"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons"
 import { Card } from "@/components/ui/card"
@@ -31,15 +31,34 @@ export function BentoCard({
   onMouseEnter,
   onMouseLeave,
 }: BentoCardProps) {
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 200, damping: 20 },
-    },
-  }
+  const shouldReduceMotion = useReducedMotion()
+  const itemVariants: Variants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1 },
+        show: { opacity: 1 },
+      }
+    : {
+        hidden: {
+          opacity: 0,
+          y: 76,
+          scale: 0.92,
+          rotateX: 8,
+          filter: "blur(14px)",
+        },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotateX: 0,
+          filter: "blur(0px)",
+          transition: {
+            type: "spring",
+            stiffness: 170,
+            damping: 20,
+            mass: 0.8,
+          },
+        },
+      }
 
   const noiseSvg = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
 
@@ -48,13 +67,13 @@ export function BentoCard({
       variants={itemVariants}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      whileHover={{ scale: 0.99 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 0.99 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
       className={cn(
         "group relative flex h-full w-full flex-col justify-end overflow-hidden",
         href ? "cursor-pointer" : "cursor-default",
         "transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_60px_-42px_rgba(0,0,0,0.75)] dark:hover:shadow-white/5",
-        "rounded-[1.75rem] border-black/6! bg-black/[0.025]! p-6 shadow-sm backdrop-blur-2xl sm:p-8 md:p-9 dark:border-white/8! dark:bg-white/[0.04]!"
+        "rounded-[1.75rem] border-black/6! bg-black/[0.025]! p-6 shadow-sm backdrop-blur-2xl will-change-transform sm:p-8 md:p-9 dark:border-white/8! dark:bg-white/[0.04]!"
       )}
     >
       {/* Noise Texture Overlay */}
@@ -64,6 +83,7 @@ export function BentoCard({
       ></div>
 
       <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/4 to-transparent opacity-40 transition-opacity duration-500 group-hover:opacity-90 dark:from-black/25"></div>
+      <div className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-linear-to-r from-transparent via-white/18 to-transparent opacity-0 transition-all duration-700 group-hover:left-[115%] group-hover:opacity-100 dark:via-white/10" />
 
       {visual && (
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">

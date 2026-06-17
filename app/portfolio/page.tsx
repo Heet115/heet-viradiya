@@ -1,51 +1,58 @@
 "use client"
 
-import { motion, useMotionValue, useSpring } from "framer-motion"
-import { useEffect } from "react"
+import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import { Header } from "@/components/header"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowUpRight01Icon, GithubIcon } from "@hugeicons/core-free-icons"
 import { Footer } from "@/components/footer"
+import {
+  MotionBackdrop,
+  ScrollParallax,
+  ScrollReveal,
+} from "@/components/scroll-effects"
 
 export default function PortfolioPage() {
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  // Smooth out the mouse movement for the glow
-  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 })
-  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 })
-
-  useEffect(() => {
-    mouseX.set(window.innerWidth / 2)
-    mouseY.set(window.innerHeight / 2)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [mouseX, mouseY])
+  const shouldReduceMotion = useReducedMotion()
 
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+      transition: { staggerChildren: 0.12, delayChildren: 0.08 },
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { type: "spring" as const, stiffness: 200, damping: 20 },
-    },
-  }
+  const itemVariants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1 },
+        show: { opacity: 1 },
+      }
+    : {
+        hidden: (index: number) => ({
+          opacity: 0,
+          x: index % 3 === 0 ? -36 : index % 3 === 2 ? 36 : 0,
+          y: 86,
+          scale: 0.9,
+          rotate: index % 2 === 0 ? -1.4 : 1.4,
+          filter: "blur(16px)",
+        }),
+        show: (index: number) => ({
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+          filter: "blur(0px)",
+          transition: {
+            delay: index * 0.025,
+            type: "spring" as const,
+            stiffness: 170,
+            damping: 21,
+            mass: 0.8,
+          },
+        }),
+      }
 
   const noiseSvg = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
 
@@ -114,45 +121,35 @@ export default function PortfolioPage() {
 
   return (
     <div className="relative min-h-screen bg-background font-sans text-foreground selection:bg-primary/30">
-      {/* Dynamic Mouse Spotlight */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <motion.div
-          style={{
-            x: smoothX,
-            y: smoothY,
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-          className="absolute h-[30vw] max-h-100 w-[30vw] max-w-100 rounded-full bg-orange-400/20 blur-[100px] md:blur-[100px] dark:bg-blue-500/20"
-        />
-      </div>
+      <MotionBackdrop />
 
       <div className="relative z-10 mx-auto max-w-350 px-6 pt-6 pb-8">
         <Header />
 
-        <div className="mb-12 text-center">
+        <ScrollReveal className="mb-12 text-center" distance={38}>
           <h1 className="mb-4 bg-linear-to-b from-foreground to-foreground/50 bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-6xl">
             My Work
           </h1>
           <p className="text-lg text-muted-foreground">
             A collection of full-stack projects and web applications.
           </p>
-        </div>
+        </ScrollReveal>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, amount: 0.18, margin: "0px 0px -10% 0px" }}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
+              custom={index}
               variants={itemVariants}
-              whileHover={{ y: -4 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -8 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-3 shadow-sm backdrop-blur-2xl transition-shadow duration-300 hover:shadow-[0_22px_60px_-42px_rgba(0,0,0,0.75)] dark:border-white/8 dark:bg-white/[0.04]"
+              className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-3 shadow-sm backdrop-blur-2xl transition-shadow duration-300 will-change-transform hover:shadow-[0_22px_60px_-42px_rgba(0,0,0,0.75)] dark:border-white/8 dark:bg-white/[0.04]"
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
@@ -168,14 +165,20 @@ export default function PortfolioPage() {
                 </div>
 
                 <div className="relative aspect-[2940/1440] overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} project screenshot`}
-                    fill
-                    priority={index < 2}
-                    sizes="(min-width: 1025px) 33vw, (min-width: 700px) 50vw, 100vw"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.035]"
-                  />
+                  <ScrollParallax
+                    distance={index % 2 === 0 ? 28 : -28}
+                    scaleRange={[1.04, 1]}
+                    className="absolute inset-x-0 -inset-y-7"
+                  >
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} project screenshot`}
+                      fill
+                      priority={index < 2}
+                      sizes="(min-width: 1025px) 33vw, (min-width: 700px) 50vw, 100vw"
+                      className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.035]"
+                    />
+                  </ScrollParallax>
                   <div className="absolute inset-0 bg-linear-to-t from-background/75 via-background/10 to-transparent opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100" />
 
                   <div className="absolute right-3 bottom-3 flex translate-y-0 items-center gap-2 opacity-100 transition-all duration-300 sm:opacity-80 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100">

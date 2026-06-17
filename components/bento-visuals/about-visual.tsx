@@ -1,90 +1,112 @@
-import { motion } from "framer-motion"
+"use client"
+
+import { motion, useReducedMotion } from "framer-motion"
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 export function AboutVisual({ isHovered }: { isHovered: boolean }) {
+  const shouldReduceMotion = useReducedMotion()
+  const active = isHovered && !shouldReduceMotion
+
   return (
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
-      {/* Background ambient glow */}
-      <div
-        className="absolute h-24 w-24 rounded-full bg-foreground/5 blur-3xl transition-all duration-1000 ease-out sm:h-32 sm:w-32"
-        style={{
-          transform: isHovered ? "scale(1.5)" : "scale(1)",
-          opacity: isHovered ? 1 : 0.5,
-        }}
-      />
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden p-6">
+      <motion.div
+        className="relative h-[10rem] w-[10rem] sm:h-[12rem] sm:w-[12rem]"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : active
+              ? { y: -5, rotate: -1, scale: 1.03 }
+              : { y: [0, -4, 0], rotate: [0, 0.7, 0] }
+        }
+        transition={
+          active
+            ? { type: "spring", stiffness: 160, damping: 22 }
+            : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+        }
+      >
+        <motion.div
+          className="absolute inset-6 rounded-full border border-foreground/10 bg-background/18 shadow-sm"
+          animate={{
+            opacity: active ? 0.78 : 0.42,
+            scale: active ? 1.05 : 1,
+          }}
+          transition={{ duration: 0.7, ease }}
+        />
 
-      {/* Minimal Abstract Rings */}
-      <div className="relative flex h-full w-full items-center justify-center">
-        <svg viewBox="0 0 100 100" className="h-24 w-24 overflow-visible sm:h-32 sm:w-32">
-          {/* Inner ring */}
-          <motion.circle
-            cx="50"
-            cy="50"
-            r="15"
+        <motion.div
+          className="absolute inset-0 rounded-full border border-foreground/8"
+          animate={
+            shouldReduceMotion
+              ? undefined
+              : { rotate: active ? 22 : [0, 12, 0], opacity: active ? 0.42 : 0.18 }
+          }
+          transition={
+            active
+              ? { duration: 0.8, ease }
+              : { duration: 8, repeat: Infinity, ease: "easeInOut" }
+          }
+        />
+
+        <svg
+          viewBox="0 0 180 180"
+          className="relative h-full w-full overflow-visible text-foreground"
+        >
+          <motion.path
+            d="M59 121V59"
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.5"
-            className="text-foreground/40 dark:text-foreground/30"
-            initial={{ pathLength: 0, rotate: -90, opacity: 0.5 }}
-            animate={{
-              pathLength: isHovered ? 1 : 0.2,
-              rotate: isHovered ? 270 : -90,
-              opacity: isHovered ? 1 : 0.5,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          />
-          {/* Middle ring */}
-          <motion.circle
-            cx="50"
-            cy="50"
-            r="28"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.5"
-            className="text-foreground/20"
-            initial={{ pathLength: 0.1, rotate: 0, opacity: 0.3 }}
-            animate={{
-              pathLength: isHovered ? 0.8 : 0.1,
-              rotate: isHovered ? 180 : 0,
-              opacity: isHovered ? 0.8 : 0.3,
-            }}
-            transition={{ duration: 1.8, ease: "easeInOut", delay: 0.1 }}
             strokeLinecap="round"
+            strokeWidth="2"
+            className="opacity-40"
+            initial={false}
+            animate={{ pathLength: active ? 1 : 0.72, opacity: active ? 0.68 : 0.38 }}
+            transition={{ duration: 0.7, ease }}
           />
-          {/* Outer ring */}
-          <motion.circle
-            cx="50"
-            cy="50"
-            r="42"
+          <motion.path
+            d="M121 59v62"
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.5"
-            className="text-foreground/10"
-            initial={{ pathLength: 0.2, rotate: 90, opacity: 0.2 }}
-            animate={{
-              pathLength: isHovered ? 0.6 : 0.2,
-              rotate: isHovered ? -90 : 90,
-              opacity: isHovered ? 0.6 : 0.2,
-            }}
-            transition={{ duration: 2, ease: "easeInOut", delay: 0.2 }}
-            strokeDasharray="4 4"
+            strokeLinecap="round"
+            strokeWidth="2"
+            className="opacity-40"
+            initial={false}
+            animate={{ pathLength: active ? 1 : 0.72, opacity: active ? 0.68 : 0.38 }}
+            transition={{ duration: 0.7, ease, delay: 0.04 }}
           />
-
-          {/* Center glowing dot */}
-          <motion.circle
-            cx="50"
-            cy="50"
-            r="2"
-            fill="currentColor"
-            className="text-foreground"
-            initial={{ scale: 0.5, opacity: 0.5 }}
+          <motion.path
+            d="M64 93h42l17-34"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            className="opacity-30"
+            initial={false}
             animate={{
-              scale: isHovered ? [1, 1.5, 1] : 1,
-              opacity: isHovered ? 1 : 0.5,
+              pathLength: active ? 1 : 0.54,
+              opacity: active ? 0.56 : 0.26,
             }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 0.9, ease, delay: 0.08 }}
+          />
+          <motion.circle
+            cx="121"
+            cy="59"
+            r="4"
+            fill="currentColor"
+            className="opacity-35"
+            animate={{
+              scale: active ? 1.18 : [1, 1.08, 1],
+              opacity: active ? 0.62 : 0.32,
+            }}
+            transition={
+              active
+                ? { duration: 0.5, ease }
+                : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
+            }
           />
         </svg>
-      </div>
+      </motion.div>
     </div>
   )
 }
