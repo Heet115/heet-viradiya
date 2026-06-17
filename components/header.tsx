@@ -50,11 +50,11 @@ export function Header() {
           },
         },
       }}
-      className="group relative mx-auto mt-4 mb-12 flex h-12 w-fit items-center gap-8 overflow-hidden rounded-full border border-black/8 bg-black/2 px-6 font-medium tracking-tight text-foreground shadow-lg backdrop-blur-[48px] dark:border-white/6 dark:bg-[#111111]/25"
+      className="group relative mx-auto mt-4 mb-12 flex h-12 w-fit items-center gap-8 overflow-hidden rounded-[1.25rem] border border-black/6 bg-background/65 px-6 font-medium tracking-tight text-foreground shadow-sm backdrop-blur-2xl dark:border-white/8 dark:bg-white/[0.04]"
     >
       {/* Noise Texture Overlay */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay dark:opacity-[0.12]"
+        className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}

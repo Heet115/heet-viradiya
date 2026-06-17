@@ -1,15 +1,21 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
 export default function Template({ children }: { children: React.ReactNode }) {
+  const shouldReduceMotion = useReducedMotion()
+
+  if (shouldReduceMotion) {
+    return <>{children}</>
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
-        duration: 1.5,
-        ease: [0.22, 1, 0.36, 1], // Custom Apple-esque easing
+        duration: 0.38,
+        ease: [0.22, 1, 0.36, 1],
       }}
     >
       {children}

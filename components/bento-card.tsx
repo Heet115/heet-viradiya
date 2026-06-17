@@ -53,18 +53,17 @@ export function BentoCard({
       className={cn(
         "group relative flex h-full w-full flex-col justify-end overflow-hidden",
         href ? "cursor-pointer" : "cursor-default",
-        "transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5",
-        // Refined glassmorphism classes:
-        "rounded-[2.5rem] border-black/8! bg-black/2! p-6 sm:p-8 md:p-10 backdrop-blur-[48px] dark:border-white/6! dark:bg-[#111111]/25!"
+        "transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_60px_-42px_rgba(0,0,0,0.75)] dark:hover:shadow-white/5",
+        "rounded-[1.75rem] border-black/6! bg-black/[0.025]! p-6 shadow-sm backdrop-blur-2xl sm:p-8 md:p-9 dark:border-white/8! dark:bg-white/[0.04]!"
       )}
     >
       {/* Noise Texture Overlay */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay dark:opacity-[0.12]"
+        className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
         style={{ backgroundImage: noiseSvg }}
       ></div>
 
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/5 to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100 dark:from-black/40"></div>
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/4 to-transparent opacity-40 transition-opacity duration-500 group-hover:opacity-90 dark:from-black/25"></div>
 
       {visual && (
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { BentoCard } from "@/components/bento-card"
 import { Footer } from "@/components/footer"
+import { HomeDock } from "@/components/home-dock"
 
 // Import our new extracted visual components
 import { AboutVisual } from "@/components/bento-visuals/about-visual"
@@ -67,7 +68,7 @@ export default function Page() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-350 px-6 pt-6 pb-8">
+      <div className="relative z-10 mx-auto max-w-350 px-6 pt-6 pb-28">
         <Header />
 
         {/* Huge Hero Text */}
@@ -158,6 +159,7 @@ export default function Page() {
 
         <Footer />
       </div>
+      <HomeDock />
     </div>
   )
 }

@@ -76,10 +76,10 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-12 sm:p-12 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:col-span-12 sm:p-12 dark:border-white/8 dark:bg-white/[0.04]"
           >
             <div
-              className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
               style={{ backgroundImage: noiseSvg }}
             />
             <div className="relative z-10 flex max-w-4xl flex-col gap-6">
@@ -105,10 +105,10 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-6 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:col-span-6 dark:border-white/8 dark:bg-white/[0.04]"
           >
             <div
-              className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
               style={{ backgroundImage: noiseSvg }}
             />
             <div className="relative z-10 flex h-full flex-col gap-8">
@@ -156,10 +156,10 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-6 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:col-span-6 dark:border-white/8 dark:bg-white/[0.04]"
           >
             <div
-              className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
               style={{ backgroundImage: noiseSvg }}
             />
             <div className="relative z-10 flex h-full flex-col gap-8">
@@ -202,10 +202,10 @@ export default function AboutPage() {
             variants={itemVariants}
             whileHover={{ scale: 0.99 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-12 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:col-span-12 dark:border-white/8 dark:bg-white/[0.04]"
           >
             <div
-              className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
               style={{ backgroundImage: noiseSvg }}
             />
             <div className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-2">

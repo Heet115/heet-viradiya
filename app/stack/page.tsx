@@ -4,6 +4,14 @@ import { motion, useMotionValue, useSpring } from "framer-motion"
 import { useEffect } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { HugeiconsIcon } from "@hugeicons/react"
+import {
+  BrainCircuitIcon,
+  CloudIcon,
+  CodeIcon,
+  Database01Icon,
+  GitBranchIcon,
+} from "@hugeicons/core-free-icons"
 
 export default function StackPage() {
   const mouseX = useMotionValue(0)
@@ -50,6 +58,7 @@ export default function StackPage() {
     {
       title: "Frontend Development",
       colSpan: "sm:col-span-12 md:col-span-7",
+      icon: CodeIcon,
       skills: [
         "Next.js",
         "React",
@@ -64,6 +73,7 @@ export default function StackPage() {
     {
       title: "Backend & Database",
       colSpan: "sm:col-span-12 md:col-span-5",
+      icon: Database01Icon,
       skills: [
         "Node.js",
         "REST APIs",
@@ -75,16 +85,19 @@ export default function StackPage() {
     {
       title: "Auth & Cloud",
       colSpan: "sm:col-span-6 md:col-span-6",
+      icon: CloudIcon,
       skills: ["Clerk", "NextAuth", "Vercel", "Cloudinary", "Vercel Blob"],
     },
     {
       title: "Development Tools",
       colSpan: "sm:col-span-6 md:col-span-6",
+      icon: GitBranchIcon,
       skills: ["Git", "GitHub", "VS Code", "AI IDE"],
     },
     {
       title: "AI & Productivity",
       colSpan: "sm:col-span-12 md:col-span-12",
+      icon: BrainCircuitIcon,
       skills: [
         "Google Generative AI",
         "AI-Assisted Development",
@@ -131,28 +144,60 @@ export default function StackPage() {
             <motion.div
               key={category.title}
               variants={itemVariants}
-              whileHover={{ scale: 0.99 }}
+              whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className={`group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:p-10 dark:border-white/6 dark:bg-[#111111]/25 ${category.colSpan}`}
+              className={`group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-7 shadow-sm backdrop-blur-2xl transition-shadow duration-300 hover:shadow-[0_22px_60px_-42px_rgba(0,0,0,0.75)] sm:p-9 dark:border-white/8 dark:bg-white/[0.04] ${category.colSpan}`}
             >
               <div
-                className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+                className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
                 style={{ backgroundImage: noiseSvg }}
               />
 
               <div className="relative z-10 flex h-full flex-col gap-8">
-                <h2 className="text-2xl font-bold tracking-tight">
-                  {category.title}
-                </h2>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-bold tracking-tight">
+                      {category.title}
+                    </h2>
+                    <div className="mt-3 h-px w-14 bg-foreground/18 transition-all duration-300 group-hover:w-24 group-hover:bg-foreground/35" />
+                  </div>
+
+                  <motion.div
+                    className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-foreground/8 bg-black/[0.025] text-foreground shadow-sm"
+                    animate={{
+                      rotate: [0, 0, -2, 2, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    whileHover={{ scale: 1.08, rotate: 0 }}
+                  >
+                    <span className="absolute inset-1 rounded-[0.85rem] bg-foreground/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <HugeiconsIcon
+                      icon={category.icon}
+                      className="relative h-5 w-5"
+                    />
+                  </motion.div>
+                </div>
 
                 <div className="mt-auto flex flex-wrap gap-3">
-                  {category.skills.map((skill) => (
-                    <span
+                  {category.skills.map((skill, index) => (
+                    <motion.span
                       key={skill}
-                      className="cursor-default rounded-xl border border-foreground/10 bg-background/50 px-4 py-2 text-sm font-medium text-foreground/80 shadow-sm transition-all hover:scale-105 hover:border-foreground/30 hover:bg-background/80 hover:text-foreground"
+                      initial={{ y: 0 }}
+                      whileHover={{ y: -3 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 420,
+                        damping: 24,
+                        delay: index * 0.01,
+                      }}
+                      className="cursor-default rounded-xl border border-foreground/8 bg-background/55 px-4 py-2 text-sm font-medium text-foreground/80 shadow-sm transition-colors hover:border-foreground/25 hover:bg-background/90 hover:text-foreground"
                     >
                       {skill}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>

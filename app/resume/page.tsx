@@ -76,10 +76,10 @@ export default function ResumePage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:p-12 md:p-16 dark:border-white/6 dark:bg-[#111111]/25"
+          className="relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:p-12 md:p-16 dark:border-white/8 dark:bg-white/[0.04]"
         >
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+            className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
             style={{ backgroundImage: noiseSvg }}
           />
 

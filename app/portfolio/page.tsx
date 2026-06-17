@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import { useEffect } from "react"
+import Image from "next/image"
 import { Header } from "@/components/header"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowUpRight01Icon, GithubIcon } from "@hugeicons/core-free-icons"
@@ -57,6 +58,7 @@ export default function PortfolioPage() {
       tags: ["Next.js 15", "TypeScript", "MongoDB", "Clerk"],
       github: "https://github.com/Heet115/learnops",
       live: "https://learnops.vercel.app",
+      image: "/projects/learnops.png",
     },
     {
       title: "CampusClaim",
@@ -66,6 +68,7 @@ export default function PortfolioPage() {
       tags: ["Next.js 16", "NextAuth", "MongoDB", "Tailwind v4"],
       github: "https://github.com/Heet115/campusclaim",
       live: "https://campusclaim.vercel.app",
+      image: "/projects/campusclaim.png",
     },
     {
       title: "UnconditionalHelp",
@@ -75,6 +78,7 @@ export default function PortfolioPage() {
       tags: ["Next.js", "TypeScript", "Tailwind CSS"],
       github: "https://github.com/Heet115/unconditionalhelp",
       live: "https://unconditionalhelp.vercel.app",
+      image: "/projects/unconditionalhelp.png",
     },
     {
       title: "Present Perfect",
@@ -84,6 +88,7 @@ export default function PortfolioPage() {
       tags: ["Next.js 15", "React 19", "Firebase", "Google AI"],
       github: "https://github.com/Heet115/present-perfect",
       live: "https://presentperfect.vercel.app",
+      image: "/projects/present-perfect.png",
     },
     {
       title: "FinTrackX",
@@ -93,6 +98,7 @@ export default function PortfolioPage() {
       tags: ["Next.js", "Firebase", "TypeScript", "Tailwind CSS"],
       github: "https://github.com/Heet115/FinTrackX",
       live: "https://fin-trackx.vercel.app",
+      image: "/projects/fintrackx.png",
     },
     {
       title: "RoommateX",
@@ -102,6 +108,7 @@ export default function PortfolioPage() {
       tags: ["React", "Firebase", "Tailwind CSS"],
       github: "https://github.com/Heet115/roomily",
       live: "https://roomily.vercel.app",
+      image: "/projects/roomily.png",
     },
   ]
 
@@ -139,79 +146,94 @@ export default function PortfolioPage() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.title}
               variants={itemVariants}
-              whileHover={{ scale: 0.99 }}
+              whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] dark:border-white/6 dark:bg-[#111111]/25"
+              className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-3 shadow-sm backdrop-blur-2xl transition-shadow duration-300 hover:shadow-[0_22px_60px_-42px_rgba(0,0,0,0.75)] dark:border-white/8 dark:bg-white/[0.04]"
             >
               <div
-                className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+                className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
                 style={{ backgroundImage: noiseSvg }}
               />
 
-              <div className="relative z-10 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="mb-1 text-2xl font-bold tracking-tight transition-colors group-hover:text-foreground/80">
-                      {project.title}
-                    </h2>
-                    <h3 className="text-sm font-medium text-foreground/60">
-                      {project.subtitle}
-                    </h3>
-                  </div>
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 rounded-full border border-foreground/10 bg-background/50 px-3 py-1.5 text-xs font-medium text-foreground/70 transition-all hover:scale-105 hover:bg-foreground hover:text-background"
-                    >
-                      Live
-                      <HugeiconsIcon
-                        icon={ArrowUpRight01Icon}
-                        className="h-3.5 w-3.5"
-                      />
-                    </a>
-                  )}
+              <div className="relative z-10 overflow-hidden rounded-[1.15rem] border border-foreground/8 bg-foreground/5">
+                <div className="flex h-8 items-center gap-1.5 border-b border-foreground/8 bg-background/70 px-3">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
+                  <span className="ml-2 h-3 w-18 rounded-full bg-foreground/8" />
                 </div>
 
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  {project.description}
-                </p>
+                <div className="relative aspect-[2940/1440] overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} project screenshot`}
+                    fill
+                    priority={index < 2}
+                    sizes="(min-width: 1025px) 33vw, (min-width: 700px) 50vw, 100vw"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.035]"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-background/75 via-background/10 to-transparent opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100" />
+
+                  <div className="absolute right-3 bottom-3 flex translate-y-0 items-center gap-2 opacity-100 transition-all duration-300 sm:opacity-80 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100">
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="border-foregound/10 flex h-9 items-center gap-2 rounded-full border bg-background/85 px-3 text-xs font-semibold text-foreground shadow-sm backdrop-blur-xl transition-colors hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+                      >
+                        Live
+                        <HugeiconsIcon
+                          icon={ArrowUpRight01Icon}
+                          className="h-3.5 w-3.5"
+                        />
+                      </a>
+                    )}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex h-9 items-center gap-2 rounded-full border border-foreground/10 bg-background/85 px-3 text-xs font-semibold text-foreground shadow-sm backdrop-blur-xl transition-colors hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+                      >
+                        <HugeiconsIcon
+                          icon={GithubIcon}
+                          className="h-3.5 w-3.5"
+                        />
+                        Code
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              <div className="relative z-10 mt-8 flex flex-col justify-between gap-6 xl:flex-row xl:items-end">
-                <div className="flex flex-1 flex-wrap gap-2">
+              <div className="relative z-10 flex flex-1 flex-col gap-5 px-3 pt-5 pb-3">
+                <div>
+                  <h2 className="mb-1 text-2xl font-bold tracking-tight transition-colors group-hover:text-foreground/80">
+                    {project.title}
+                  </h2>
+                  <h3 className="text-sm font-medium text-foreground/60">
+                    {project.subtitle}
+                  </h3>
+                </div>
+
+                <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {project.description}
+                </p>
+
+                <div className="mt-auto flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md border border-foreground/10 bg-background/50 px-3 py-1.5 font-mono text-[11px] tracking-wider text-foreground/70 transition-colors group-hover:border-foreground/20 group-hover:bg-background/80"
+                      className="rounded-md border border-foreground/8 bg-background/55 px-3 py-1.5 font-mono text-[11px] tracking-wider text-foreground/70 transition-colors group-hover:border-foreground/20 group-hover:bg-background/80"
                     >
                       {tag}
                     </span>
                   ))}
-                </div>
-
-                <div className="flex items-center gap-3">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 rounded-full border border-foreground/10 bg-background/50 px-3 py-1.5 text-xs font-medium text-foreground/70 transition-all hover:scale-105 hover:bg-foreground hover:text-background"
-                    >
-                      <HugeiconsIcon
-                        icon={GithubIcon}
-                        className="h-3.5 w-3.5"
-                      />
-                      Code
-                    </a>
-                  )}
                 </div>
               </div>
             </motion.div>

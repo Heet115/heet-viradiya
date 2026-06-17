@@ -13,6 +13,47 @@ import {
   CheckmarkCircle04Icon,
 } from "@hugeicons/core-free-icons"
 import { Footer } from "@/components/footer"
+import { cn } from "@/lib/utils"
+
+type ContactForm = {
+  name: string
+  email: string
+  message: string
+  website: string
+}
+
+type ContactField = "name" | "email" | "message"
+type ContactErrors = Partial<Record<ContactField, string>>
+
+const initialForm: ContactForm = {
+  name: "",
+  email: "",
+  message: "",
+  website: "",
+}
+
+function validateContactForm(form: ContactForm) {
+  const errors: ContactErrors = {}
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+  if (!form.name.trim()) {
+    errors.name = "Add your name."
+  }
+
+  if (!form.email.trim()) {
+    errors.email = "Add your email."
+  } else if (!emailRegex.test(form.email.trim())) {
+    errors.email = "Use a valid email address."
+  }
+
+  if (!form.message.trim()) {
+    errors.message = "Add a short message."
+  } else if (form.message.trim().length < 10) {
+    errors.message = "A little more context helps."
+  }
+
+  return errors
+}
 
 export default function ContactPage() {
   const mouseX = useMotionValue(0)
@@ -84,14 +125,27 @@ export default function ContactPage() {
   ]
 
   // ── Form State ────────────────────────────────────────────────────────────
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-    website: "",
+  const [form, setForm] = useState<ContactForm>(initialForm)
+  const [touched, setTouched] = useState<Record<ContactField, boolean>>({
+    name: false,
+    email: false,
+    message: false,
   })
+  const [hasSubmitted, setHasSubmitted] = useState(false)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
+  const errors = validateContactForm(form)
+
+  const shouldShowError = (field: ContactField) =>
+    Boolean(errors[field] && (touched[field] || hasSubmitted))
+
+  const inputClassName = (field: ContactField) =>
+    cn(
+      "w-full rounded-xl border bg-background/55 text-sm transition-all outline-none focus:bg-background/80 focus:ring-4 focus:ring-foreground/5",
+      shouldShowError(field)
+        ? "border-red-500/35 bg-red-500/5 focus:border-red-500/50"
+        : "border-foreground/8 focus:border-foreground/25"
+    )
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -100,11 +154,27 @@ export default function ContactPage() {
     if (status !== "idle") setStatus("idle")
   }
 
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const field = e.target.name
+
+    if (field === "name" || field === "email" || field === "message") {
+      setTouched((prev) => ({ ...prev, [field]: true }))
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setHasSubmitted(true)
     setIsSubmitting(true)
     setStatus("idle")
     setErrorMsg("")
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false)
+      return
+    }
 
     try {
       const res = await fetch("/api/contact", {
@@ -120,7 +190,9 @@ export default function ContactPage() {
         setStatus("error")
       } else {
         setStatus("success")
-        setForm({ name: "", email: "", message: "", website: "" })
+        setHasSubmitted(false)
+        setTouched({ name: false, email: false, message: false })
+        setForm(initialForm)
       }
     } catch {
       setErrorMsg("Network error. Please try again.")
@@ -170,7 +242,7 @@ export default function ContactPage() {
               const Content = (
                 <>
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+                    className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
                     style={{ backgroundImage: noiseSvg }}
                   />
                   <div className="relative z-10 flex items-center gap-4">
@@ -193,7 +265,7 @@ export default function ContactPage() {
               )
 
               const className =
-                "group relative overflow-hidden rounded-[2rem] border border-black/8 dark:border-white/6 bg-black/2 dark:bg-[#111111]/25 p-6 shadow-sm backdrop-blur-[48px] transition-all hover:shadow-md"
+                "group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-6 shadow-sm backdrop-blur-2xl transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-35px_rgba(0,0,0,0.65)] dark:border-white/8 dark:bg-white/[0.04]"
 
               return (
                 <motion.div
@@ -224,10 +296,10 @@ export default function ContactPage() {
           {/* Right Column: Contact Form */}
           <motion.div
             variants={itemVariants}
-            className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-black/2 p-8 shadow-lg backdrop-blur-[48px] sm:col-span-12 sm:p-12 md:col-span-7 dark:border-white/6 dark:bg-[#111111]/25"
+            className="group relative overflow-hidden rounded-[1.5rem] border border-black/6 bg-black/[0.025] p-8 shadow-sm backdrop-blur-2xl sm:col-span-12 sm:p-12 md:col-span-7 dark:border-white/8 dark:bg-white/[0.04]"
           >
             <div
-              className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay dark:opacity-[0.12]"
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.08]"
               style={{ backgroundImage: noiseSvg }}
             />
 
@@ -237,14 +309,36 @@ export default function ContactPage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                className="relative z-10 flex flex-col items-center justify-center gap-6 py-12 text-center"
+                className="relative z-10 flex min-h-95 flex-col items-center justify-center gap-6 py-12 text-center"
               >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-2xl text-green-500 dark:text-green-400">
-                  <HugeiconsIcon
-                    icon={CheckmarkCircle04Icon}
-                    className="h-8 w-8"
+                <motion.div
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 360, damping: 20 }}
+                  className="relative flex h-18 w-18 items-center justify-center rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400"
+                >
+                  <motion.span
+                    className="absolute inset-0 rounded-full border border-emerald-500/25"
+                    initial={{ scale: 0.75, opacity: 0.8 }}
+                    animate={{ scale: 1.35, opacity: 0 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
                   />
-                </div>
+                  <motion.div
+                    initial={{ scale: 0.6, rotate: -12 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{
+                      delay: 0.15,
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 20,
+                    }}
+                  >
+                    <HugeiconsIcon
+                      icon={CheckmarkCircle04Icon}
+                      className="h-9 w-9"
+                    />
+                  </motion.div>
+                </motion.div>
                 <div>
                   <h3 className="text-xl font-bold tracking-tight">
                     Message Sent!
@@ -262,6 +356,7 @@ export default function ContactPage() {
               </motion.div>
             ) : (
               <form
+                noValidate
                 onSubmit={handleSubmit}
                 className="relative z-10 flex flex-col gap-6"
               >
@@ -278,11 +373,26 @@ export default function ContactPage() {
                       id="name"
                       name="name"
                       required
+                      aria-invalid={shouldShowError("name")}
+                      aria-describedby={
+                        shouldShowError("name") ? "name-error" : undefined
+                      }
                       value={form.name}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="John Doe"
-                      className="h-12 w-full rounded-2xl border border-foreground/10 bg-background/50 px-4 text-sm transition-all outline-none focus:border-foreground/30 focus:bg-background/80"
+                      className={cn("h-12 px-4", inputClassName("name"))}
                     />
+                    {shouldShowError("name") && (
+                      <motion.p
+                        id="name-error"
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="ml-1 text-xs font-medium text-red-500"
+                      >
+                        {errors.name}
+                      </motion.p>
+                    )}
                   </div>
                   <div className="flex flex-col gap-2">
                     <label
@@ -296,11 +406,26 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       required
+                      aria-invalid={shouldShowError("email")}
+                      aria-describedby={
+                        shouldShowError("email") ? "email-error" : undefined
+                      }
                       value={form.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="john@example.com"
-                      className="h-12 w-full rounded-2xl border border-foreground/10 bg-background/50 px-4 text-sm transition-all outline-none focus:border-foreground/30 focus:bg-background/80"
+                      className={cn("h-12 px-4", inputClassName("email"))}
                     />
+                    {shouldShowError("email") && (
+                      <motion.p
+                        id="email-error"
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="ml-1 text-xs font-medium text-red-500"
+                      >
+                        {errors.email}
+                      </motion.p>
+                    )}
                   </div>
                 </div>
 
@@ -315,12 +440,27 @@ export default function ContactPage() {
                     id="message"
                     name="message"
                     required
+                    aria-invalid={shouldShowError("message")}
+                    aria-describedby={
+                      shouldShowError("message") ? "message-error" : undefined
+                    }
                     value={form.message}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder="Tell me about your project..."
                     rows={5}
-                    className="w-full resize-none rounded-2xl border border-foreground/10 bg-background/50 p-4 text-sm transition-all outline-none focus:border-foreground/30 focus:bg-background/80"
+                    className={cn("resize-none p-4", inputClassName("message"))}
                   />
+                  {shouldShowError("message") && (
+                    <motion.p
+                      id="message-error"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="ml-1 text-xs font-medium text-red-500"
+                    >
+                      {errors.message}
+                    </motion.p>
+                  )}
                 </div>
 
                 <div className="hidden" aria-hidden="true">
@@ -341,7 +481,7 @@ export default function ContactPage() {
                   <motion.p
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500"
+                    className="rounded-xl border border-red-500/15 bg-red-500/8 px-4 py-3 text-sm text-red-500"
                   >
                     {errorMsg}
                   </motion.p>
@@ -350,7 +490,8 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group/btn relative mt-2 flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-foreground font-bold text-background transition-all hover:bg-foreground/90 disabled:cursor-not-allowed disabled:opacity-60"
+                  aria-busy={isSubmitting}
+                  className="group/btn relative mt-2 flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-foreground font-bold text-background transition-all hover:-translate-y-0.5 hover:bg-foreground/90 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-65"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -373,7 +514,7 @@ export default function ContactPage() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                         />
                       </svg>
-                      Sending...
+                      Sending message
                     </span>
                   ) : (
                     <>
