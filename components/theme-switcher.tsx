@@ -54,6 +54,19 @@ const THEME_TRANSITION_CSS = `
 }
 `
 
+function isTypingTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) {
+    return false
+  }
+
+  return (
+    target.isContentEditable ||
+    target.tagName === "INPUT" ||
+    target.tagName === "TEXTAREA" ||
+    target.tagName === "SELECT"
+  )
+}
+
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false)
   const { setTheme, resolvedTheme } = useTheme()
@@ -102,16 +115,23 @@ export function ThemeSwitcher() {
   // Global "D" hotkey for toggling theme
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Only trigger if not typing in an input
-      if (
-        e.key.toLowerCase() === "d" &&
-        !e.ctrlKey &&
-        !e.metaKey &&
-        !e.altKey &&
-        (e.target === document.body || e.target === document.documentElement)
-      ) {
-        toggleTheme()
+      if (e.defaultPrevented || e.repeat) {
+        return
       }
+
+      if (e.ctrlKey || e.metaKey || e.altKey) {
+        return
+      }
+
+      if (e.key.toLowerCase() !== "d") {
+        return
+      }
+
+      if (isTypingTarget(e.target)) {
+        return
+      }
+
+      toggleTheme()
     }
 
     window.addEventListener("keydown", handleKeyDown)

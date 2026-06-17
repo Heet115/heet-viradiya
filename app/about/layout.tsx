@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "About | Heet Viradiya",
     description:
       "Learn about Heet Viradiya — Full-Stack Developer with experience building Academic ERP platforms, AI applications, and finance management products.",
-    url: "https://heetviradiya.dev/about",
+    url: "https://heetviradiya.codes/about",
   },
   twitter: {
     title: "About | Heet Viradiya",

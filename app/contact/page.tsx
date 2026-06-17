@@ -84,7 +84,12 @@ export default function ContactPage() {
   ]
 
   // ── Form State ────────────────────────────────────────────────────────────
-  const [form, setForm] = useState({ name: "", email: "", message: "" })
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+    website: "",
+  })
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
@@ -115,7 +120,7 @@ export default function ContactPage() {
         setStatus("error")
       } else {
         setStatus("success")
-        setForm({ name: "", email: "", message: "" })
+        setForm({ name: "", email: "", message: "", website: "" })
       }
     } catch {
       setErrorMsg("Network error. Please try again.")
@@ -235,7 +240,10 @@ export default function ContactPage() {
                 className="relative z-10 flex flex-col items-center justify-center gap-6 py-12 text-center"
               >
                 <div className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-2xl text-green-500 dark:text-green-400">
-                  <HugeiconsIcon icon={CheckmarkCircle04Icon} className="h-8 w-8" />
+                  <HugeiconsIcon
+                    icon={CheckmarkCircle04Icon}
+                    className="h-8 w-8"
+                  />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold tracking-tight">
@@ -312,6 +320,19 @@ export default function ContactPage() {
                     placeholder="Tell me about your project..."
                     rows={5}
                     className="w-full resize-none rounded-2xl border border-foreground/10 bg-background/50 p-4 text-sm transition-all outline-none focus:border-foreground/30 focus:bg-background/80"
+                  />
+                </div>
+
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={handleChange}
                   />
                 </div>
 
